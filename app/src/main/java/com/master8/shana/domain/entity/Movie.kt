@@ -6,15 +6,15 @@ data class Movie(
     val name: String,
     val originalName: String,
     val releaseYear: Int,
-    val poster: Uri?,
+    val poster: Uri? = null,
 
-    val movieType: MovieType,
-    val watchStatus: WatchStatus,
-    val saveStatus: SaveStatus,
+    val movieType: MovieType = MovieType.UNKNOWN,
+    val watchStatus: WatchStatus = WatchStatus.UNKNOWN,
+    val saveStatus: SaveStatus = SaveStatus.UNKNOWN,
 
-    val externalId: Int?,
-    val internalId: Long?,
-    val dateAdded: Long?,
+    val externalId: Int? = null,
+    val internalId: Long? = null,
+    val dateAdded: Long? = null,
 
-    val relatedSeries: Series?
+    val relatedSeries: Series? = null
 )

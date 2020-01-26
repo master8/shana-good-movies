@@ -6,8 +6,8 @@ data class Series(
     val name: String,
     val originalName: String,
     val releaseYear: Int,
-    val poster: Uri?,
+    val poster: Uri? = null,
 
-    val internalId: Long?,
-    val externalId: Int?
+    val internalId: Long? = null,
+    val externalId: Int? = null
 )
