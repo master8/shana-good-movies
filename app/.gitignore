@@ -1,2 +1,2 @@
 /build
-/src/main/java/com/master8/shana/TMDbApiKey.kt
+/src/main/java/com/master8/shana/data/source/tmdb/TMDbApiKey.kt

@@ -1,4 +1,4 @@
-package com.master8.shana
+package com.master8.shana.app
 
 import android.app.Application
 
