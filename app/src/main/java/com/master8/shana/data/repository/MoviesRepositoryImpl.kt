@@ -1,8 +1,10 @@
 package com.master8.shana.data.repository
 
 import android.net.Uri
+import android.util.Log
 import com.master8.shana.data.source.tmdb.*
 import com.master8.shana.data.source.tmdb.dto.MediaDto
+import com.master8.shana.data.source.tmdb.dto.SeasonDto
 import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.entity.Series
 import com.master8.shana.domain.repository.MoviesRepository
@@ -37,17 +39,16 @@ class MoviesRepositoryImpl(
 
     private suspend fun getMovieForTV(mediaTv: MediaDto): List<Movie> {
         val series = mediaTv.toSeries()
-//        TODO()
-        return emptyList()
+        val seasons = withContext(Dispatchers.IO) { tmdbApiService.getTvDetails(mediaTv.id!!).seasons }
+        return seasons.map { it.toMovie(series) }
     }
 
-    private fun MediaDto.toMovie(relatedSeries: Series? = null) = Movie(
+    private fun MediaDto.toMovie() = Movie(
         name,
         originalName,
         getYearFromTMDbDate(releaseDate!!),
         createTMDbAbsoluteImageUri(poster),
-        externalId = id,
-        relatedSeries = relatedSeries
+        externalId = id
     )
 
     private fun MediaDto.toSeries() = Series(
@@ -56,5 +57,16 @@ class MoviesRepositoryImpl(
         getYearFromTMDbDate(releaseDate!!),
         createTMDbAbsoluteImageUri(poster),
         externalId = id
+    )
+
+    private fun SeasonDto.toMovie(relatedSeries: Series) = Movie(
+        name,
+        relatedSeries.originalName,
+        getYearFromTMDbDate(releaseDate),
+        createTMDbAbsoluteImageUri(poster),
+        externalId = id,
+        relatedSeries = relatedSeries,
+        episodeCount = episodeCount,
+        seasonNumber = seasonNumber
     )
 }
