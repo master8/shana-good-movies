@@ -11,6 +11,7 @@ interface TMDbApiService {
     @GET("search/multi")
     suspend fun multipleSearch(
         @Query("query") query: String,
+        @Query("language") language: String = "ru",
         @Query("api_key") apiKey: String = TMDbApiKey.API_KEY
     ): SearchResultDto
 
