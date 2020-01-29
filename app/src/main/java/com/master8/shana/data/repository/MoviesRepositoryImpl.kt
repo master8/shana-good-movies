@@ -1,12 +1,10 @@
 package com.master8.shana.data.repository
 
-import android.net.Uri
-import android.util.Log
-import com.master8.shana.data.source.tmdb.*
+import com.master8.shana.data.source.tmdb.TMDbApiService
 import com.master8.shana.data.source.tmdb.dto.MediaDto
-import com.master8.shana.data.source.tmdb.dto.SeasonDto
+import com.master8.shana.data.source.tmdb.mediaTypeIsMovie
+import com.master8.shana.data.source.tmdb.mediaTypeIsTV
 import com.master8.shana.domain.entity.Movie
-import com.master8.shana.domain.entity.Series
 import com.master8.shana.domain.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -42,31 +40,4 @@ class MoviesRepositoryImpl(
         val seasons = withContext(Dispatchers.IO) { tmdbApiService.getTvDetails(mediaTv.id!!).seasons }
         return seasons.map { it.toMovie(series) }
     }
-
-    private fun MediaDto.toMovie() = Movie(
-        name,
-        originalName,
-        getYearFromTMDbDate(releaseDate!!),
-        createTMDbAbsoluteImageUri(poster),
-        externalId = id
-    )
-
-    private fun MediaDto.toSeries() = Series(
-        name,
-        originalName,
-        getYearFromTMDbDate(releaseDate!!),
-        createTMDbAbsoluteImageUri(poster),
-        externalId = id
-    )
-
-    private fun SeasonDto.toMovie(relatedSeries: Series) = Movie(
-        name,
-        relatedSeries.originalName,
-        getYearFromTMDbDate(releaseDate),
-        createTMDbAbsoluteImageUri(poster),
-        externalId = id,
-        relatedSeries = relatedSeries,
-        episodeCount = episodeCount,
-        seasonNumber = seasonNumber
-    )
 }
