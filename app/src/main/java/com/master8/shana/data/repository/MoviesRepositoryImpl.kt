@@ -1,24 +1,28 @@
 package com.master8.shana.data.repository
 
+import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
+import com.master8.shana.data.source.firebase.database.dto.*
 import com.master8.shana.data.source.tmdb.TMDbApiService
 import com.master8.shana.data.source.tmdb.dto.MediaDto
 import com.master8.shana.data.source.tmdb.mediaTypeIsMovie
 import com.master8.shana.data.source.tmdb.mediaTypeIsTV
-import com.master8.shana.domain.entity.Movie
+import com.master8.shana.domain.entity.*
 import com.master8.shana.domain.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class MoviesRepositoryImpl(
-    private val tmdbApiService: TMDbApiService
+    private val tmdbApiService: TMDbApiService,
+    private val firebaseRealtimeDatabase: FirebaseRealtimeDatabase
 ) : MoviesRepository {
 
     override suspend fun addGoodMovie(movie: Movie) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        addMovieWithStatusUse(movie, WatchStatus.WATCHED, firebaseRealtimeDatabase::addGoodMovie)
     }
 
     override suspend fun addNeedToWatchMovie(movie: Movie) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        addMovieWithStatusUse(movie, WatchStatus.NOT_WATCHED, firebaseRealtimeDatabase::addNeedToWatchMovie)
     }
 
     override suspend fun searchMovies(query: String): List<Movie> {
@@ -39,5 +43,22 @@ class MoviesRepositoryImpl(
         val series = mediaTv.toSeries()
         val seasons = withContext(Dispatchers.IO) { tmdbApiService.getTvDetails(mediaTv.id!!).seasons }
         return seasons.map { it.toMovie(series) }
+    }
+
+    private fun addMovieWithStatusUse(movie: Movie, watchStatus: WatchStatus, addMovie: (FirebaseMovieDto) -> Unit) {
+        val seriesDto: FirebaseSeriesDto? = movie.relatedSeries?.let {
+            FirebaseSeriesDto(movie.relatedSeries, UUID.randomUUID())
+        }
+
+        val movieDto = FirebaseMovieDto(
+            movie,
+            watchStatus,
+            UUID.randomUUID(),
+            System.currentTimeMillis(),
+            seriesDto
+        )
+
+        addMovie(movieDto)
+        seriesDto?.let { firebaseRealtimeDatabase.addSeries(it) }
     }
 }
