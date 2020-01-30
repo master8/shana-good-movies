@@ -4,7 +4,7 @@ import com.master8.shana.data.source.firebase.database.dto.*
 import com.master8.shana.domain.entity.*
 import java.util.*
 
-fun FirebaseSeriesDto(series: Series, internalId: UUID): FirebaseSeriesDto =
+fun firebaseSeriesDtoFrom(series: Series, internalId: UUID): FirebaseSeriesDto =
     with (series) {
         FirebaseSeriesDto(
             name,
@@ -16,7 +16,7 @@ fun FirebaseSeriesDto(series: Series, internalId: UUID): FirebaseSeriesDto =
         )
     }
 
-fun FirebaseMovieDto(
+fun firebaseMovieDtoFrom(
     movie: Movie,
     watchStatus: WatchStatus,
     internalId: UUID,

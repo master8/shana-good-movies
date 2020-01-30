@@ -47,10 +47,10 @@ class MoviesRepositoryImpl(
 
     private fun addMovieWithStatusUse(movie: Movie, watchStatus: WatchStatus, addMovie: (FirebaseMovieDto) -> Unit) {
         val seriesDto: FirebaseSeriesDto? = movie.relatedSeries?.let {
-            FirebaseSeriesDto(movie.relatedSeries, UUID.randomUUID())
+            firebaseSeriesDtoFrom(movie.relatedSeries, UUID.randomUUID())
         }
 
-        val movieDto = FirebaseMovieDto(
+        val movieDto = firebaseMovieDtoFrom(
             movie,
             watchStatus,
             UUID.randomUUID(),
