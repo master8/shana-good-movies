@@ -18,6 +18,6 @@ data class Movie(
     val dateAdded: Long? = null,
 
     val relatedSeries: Series? = null,
-    val episodeCount: Int = 1,
-    val seasonNumber: Int = 1
+    val episodeCount: Int? = null,
+    val seasonNumber: Int? = null
 )
