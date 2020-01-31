@@ -11,6 +11,7 @@ import com.master8.shana.data.source.tmdb.createTMDbApiService
 import com.master8.shana.databinding.ActivityMainBinding
 import com.master8.shana.domain.usecase.AddGoodMovieUseCase
 import com.master8.shana.domain.usecase.AddNeedToWatchMovieUseCase
+import com.master8.shana.domain.usecase.PrepareMovieToAddUseCase
 import com.master8.shana.domain.usecase.SearchMoviesUseCase
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -29,10 +30,12 @@ class MainActivity : AppCompatActivity() {
             val movies = search("シャナ")
             Log.d("mv8", "after ${movies}")
 
-            val addGoodMovie = AddGoodMovieUseCase(repository)
+            val prepareMovieToAddUseCase = PrepareMovieToAddUseCase()
+
+            val addGoodMovie = AddGoodMovieUseCase(repository, prepareMovieToAddUseCase)
             addGoodMovie(movies[1])
 
-            val addNeedToWatchMovie = AddNeedToWatchMovieUseCase(repository)
+            val addNeedToWatchMovie = AddNeedToWatchMovieUseCase(repository, prepareMovieToAddUseCase)
             addNeedToWatchMovie(movies.last())
         }
     }
