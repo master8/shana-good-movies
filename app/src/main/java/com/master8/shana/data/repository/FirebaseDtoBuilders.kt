@@ -2,27 +2,8 @@ package com.master8.shana.data.repository
 
 import com.master8.shana.data.source.firebase.database.dto.*
 import com.master8.shana.domain.entity.*
-import java.util.*
 
-fun firebaseSeriesDtoFrom(series: Series, internalId: UUID): FirebaseSeriesDto =
-    with (series) {
-        FirebaseSeriesDto(
-            name,
-            originalName,
-            releaseYear,
-            poster.toString(),
-            internalId.toString(),
-            externalId
-        )
-    }
-
-fun firebaseMovieDtoFrom(
-    movie: Movie,
-    watchStatus: WatchStatus,
-    internalId: UUID,
-    dateAdded: Long,
-    relatedSeries: FirebaseSeriesDto? = null
-): FirebaseMovieDto =
+fun buildFirebaseMovieDto(movie: Movie): FirebaseMovieDto =
     with (movie) {
         FirebaseMovieDto(
             name,
@@ -34,10 +15,22 @@ fun firebaseMovieDtoFrom(
             saveStatus.toFirebaseConst(),
             externalId,
             internalId.toString(),
-            dateAdded,
-            relatedSeries,
+            dateAdded!!,
+            relatedSeries?.let { buildFirebaseSeriesDto(it) },
             episodeCount,
             seasonNumber
+        )
+    }
+
+fun buildFirebaseSeriesDto(series: Series): FirebaseSeriesDto =
+    with (series) {
+        FirebaseSeriesDto(
+            name,
+            originalName,
+            releaseYear,
+            poster.toString(),
+            internalId.toString(),
+            externalId
         )
     }
 

@@ -18,11 +18,17 @@ class MoviesRepositoryImpl(
 ) : MoviesRepository {
 
     override suspend fun addGoodMovie(movie: Movie) {
-        addMovieWithStatusUse(movie, WatchStatus.WATCHED, firebaseRealtimeDatabase::addGoodMovie)
+        addMovieUse(movie, firebaseRealtimeDatabase::addGoodMovie)
     }
 
     override suspend fun addNeedToWatchMovie(movie: Movie) {
-        addMovieWithStatusUse(movie, WatchStatus.NOT_WATCHED, firebaseRealtimeDatabase::addNeedToWatchMovie)
+        addMovieUse(movie, firebaseRealtimeDatabase::addNeedToWatchMovie)
+    }
+
+    private fun addMovieUse(movie: Movie, addMovie: (FirebaseMovieDto) -> Unit) {
+        val movieDto = buildFirebaseMovieDto(movie)
+        addMovie(movieDto)
+        movieDto.relatedSeries?.let { firebaseRealtimeDatabase.addSeries(it) }
     }
 
     override suspend fun searchMovies(query: String): List<Movie> {
@@ -43,22 +49,5 @@ class MoviesRepositoryImpl(
         val series = mediaTv.toSeries()
         val seasons = withContext(Dispatchers.IO) { tmdbApiService.getTvDetails(mediaTv.id!!).seasons }
         return seasons.map { it.toMovie(series) }
-    }
-
-    private fun addMovieWithStatusUse(movie: Movie, watchStatus: WatchStatus, addMovie: (FirebaseMovieDto) -> Unit) {
-        val seriesDto: FirebaseSeriesDto? = movie.relatedSeries?.let {
-            firebaseSeriesDtoFrom(movie.relatedSeries, UUID.randomUUID())
-        }
-
-        val movieDto = firebaseMovieDtoFrom(
-            movie,
-            watchStatus,
-            UUID.randomUUID(),
-            System.currentTimeMillis(),
-            seriesDto
-        )
-
-        addMovie(movieDto)
-        seriesDto?.let { firebaseRealtimeDatabase.addSeries(it) }
     }
 }
