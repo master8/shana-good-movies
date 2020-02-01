@@ -42,9 +42,9 @@ private fun MovieType.toFirebaseConst() = when (this) {
 }
 
 private fun WatchStatus.toFirebaseConst() = when (this) {
-    WatchStatus.UNKNOWN -> WATCH_STATUS_WATCHED
-    WatchStatus.WATCHED -> WATCH_STATUS_NOT_WATCHED
-    WatchStatus.NOT_WATCHED -> WATCH_STATUS_UNKNOWN
+    WatchStatus.UNKNOWN -> WATCH_STATUS_UNKNOWN
+    WatchStatus.WATCHED -> WATCH_STATUS_WATCHED
+    WatchStatus.NOT_WATCHED -> WATCH_STATUS_NOT_WATCHED
 }
 
 private fun SaveStatus.toFirebaseConst() = when (this) {
