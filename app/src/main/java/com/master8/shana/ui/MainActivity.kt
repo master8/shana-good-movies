@@ -60,13 +60,17 @@ class MainActivity : AppCompatActivity() {
         val firebaseRealtimeDatabase: FirebaseRealtimeDatabase = FirebaseRealtimeDatabaseImpl()
 
         val options = FirebaseRecyclerOptions.Builder<Movie>()
-            .setQuery(firebaseRealtimeDatabase.goodMovies, ::parseMovie)
+            .setQuery(firebaseRealtimeDatabase.goodMovies.orderByChild("dateAdded"), ::parseMovie)
             .setLifecycleOwner(this)
             .build()
 
         val adapter = MovieFirebaseAdapter(options)
 
-        binding.listMovies.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this).apply {
+            reverseLayout = true
+            stackFromEnd = true
+        }
+        binding.listMovies.layoutManager = layoutManager
         binding.listMovies.adapter = adapter
     }
 }
