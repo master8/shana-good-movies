@@ -30,7 +30,7 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
             .setValue(series)
     }
 
-    companion object {
+    private companion object {
         const val PATH_GOOD_MOVIES = "goodMovies"
         const val PATH_NEED_TO_WATCH_MOVIES = "needToWatchMovies"
         const val PATH_SERIES = "series"
