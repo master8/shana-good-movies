@@ -24,19 +24,20 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        MainScope().launch {
-            val repository = MoviesRepositoryImpl(createTMDbApiService(), FirebaseRealtimeDatabaseImpl())
-            val search = SearchMoviesUseCase(repository)
-            val movies = search("シャナ")
-            Log.d("mv8", "after ${movies}")
-
-            val prepareMovieToAddUseCase = PrepareMovieToAddUseCase()
-
-            val addGoodMovie = AddGoodMovieUseCase(repository, prepareMovieToAddUseCase)
-            addGoodMovie(movies[1])
-
-            val addNeedToWatchMovie = AddNeedToWatchMovieUseCase(repository, prepareMovieToAddUseCase)
-            addNeedToWatchMovie(movies.last())
-        }
+//        MainScope().launch {
+//            val repository = MoviesRepositoryImpl(createTMDbApiService(), FirebaseRealtimeDatabaseImpl())
+//            val search = SearchMoviesUseCase(repository)
+//            val movies = search("star wars")
+//            Log.d("mv8", "after ${movies}")
+//
+//            val prepareMovieToAddUseCase = PrepareMovieToAddUseCase()
+//
+//            val addGoodMovie = AddGoodMovieUseCase(repository, prepareMovieToAddUseCase)
+//            addGoodMovie(movies[0])
+//            addGoodMovie(movies[1])
+//
+//            val addNeedToWatchMovie = AddNeedToWatchMovieUseCase(repository, prepareMovieToAddUseCase)
+//            addNeedToWatchMovie(movies.last())
+//        }
     }
 }
