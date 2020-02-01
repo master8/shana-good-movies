@@ -12,7 +12,7 @@ data class FirebaseMovieDto(
 
     var externalId: Int? = null,
     var internalId: String = "",
-    var dataAdded: Long = 0,
+    var dateAdded: Long = 0,
 
     var relatedSeries: FirebaseSeriesDto? = null,
     var episodeCount: Int? = null,

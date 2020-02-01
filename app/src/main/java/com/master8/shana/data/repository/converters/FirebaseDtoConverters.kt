@@ -70,7 +70,7 @@ fun FirebaseMovieDto.toMovie(): Movie = Movie(
     saveStatus.toSaveStatus(),
     externalId,
     UUID.fromString(internalId),
-    dataAdded,
+    dateAdded,
     relatedSeries?.toSeries(),
     episodeCount,
     seasonNumber
