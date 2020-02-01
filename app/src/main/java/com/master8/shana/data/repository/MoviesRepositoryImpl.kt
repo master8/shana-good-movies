@@ -1,5 +1,8 @@
 package com.master8.shana.data.repository
 
+import com.master8.shana.data.repository.converters.buildFirebaseMovieDto
+import com.master8.shana.data.repository.converters.toMovie
+import com.master8.shana.data.repository.converters.toSeries
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.data.source.firebase.database.dto.*
 import com.master8.shana.data.source.tmdb.TMDbApiService
@@ -10,7 +13,6 @@ import com.master8.shana.domain.entity.*
 import com.master8.shana.domain.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class MoviesRepositoryImpl(
     private val tmdbApiService: TMDbApiService,
@@ -26,7 +28,10 @@ class MoviesRepositoryImpl(
     }
 
     private fun addMovieUse(movie: Movie, addMovie: (FirebaseMovieDto) -> Unit) {
-        val movieDto = buildFirebaseMovieDto(movie)
+        val movieDto =
+            buildFirebaseMovieDto(
+                movie
+            )
         addMovie(movieDto)
         movieDto.relatedSeries?.let { firebaseRealtimeDatabase.addSeries(it) }
     }

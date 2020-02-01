@@ -1,4 +1,4 @@
-package com.master8.shana.data.repository
+package com.master8.shana.data.repository.converters
 
 import com.master8.shana.data.source.tmdb.createTMDbAbsoluteImageUri
 import com.master8.shana.data.source.tmdb.dto.MediaDto
