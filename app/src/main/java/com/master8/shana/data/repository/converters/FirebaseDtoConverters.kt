@@ -1,9 +1,12 @@
 package com.master8.shana.data.repository.converters
 
 import android.net.Uri
+import com.google.firebase.database.DataSnapshot
 import com.master8.shana.data.source.firebase.database.dto.*
 import com.master8.shana.domain.entity.*
 import java.util.*
+
+fun parseMovie(snapshot: DataSnapshot): Movie = snapshot.getValue(FirebaseMovieDto::class.java)!!.toMovie()
 
 fun buildFirebaseMovieDto(movie: Movie): FirebaseMovieDto =
     with (movie) {

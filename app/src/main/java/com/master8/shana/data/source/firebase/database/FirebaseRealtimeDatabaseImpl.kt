@@ -1,5 +1,7 @@
 package com.master8.shana.data.source.firebase.database
 
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.Query
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
@@ -9,16 +11,17 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
 
     private val database by lazy { Firebase.database.reference }
 
+    override val goodMovies: DatabaseReference by lazy { database.child(PATH_GOOD_MOVIES) }
+    override val needToWatchMovies: DatabaseReference by lazy { database.child(PATH_NEED_TO_WATCH_MOVIES) }
+
     override fun addGoodMovie(movie: FirebaseMovieDto) {
-        database
-            .child(PATH_GOOD_MOVIES)
+        goodMovies
             .child(movie.internalId)
             .setValue(movie)
     }
 
     override fun addNeedToWatchMovie(movie: FirebaseMovieDto) {
-        database
-            .child(PATH_NEED_TO_WATCH_MOVIES)
+        needToWatchMovies
             .child(movie.internalId)
             .setValue(movie)
     }
