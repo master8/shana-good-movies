@@ -11,7 +11,7 @@ class MovieViewHolder private constructor(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movie: Movie) {
-        binding.textOriginalName.text = movie.originalName
+        binding.movie = movie
     }
 
     companion object {
