@@ -1,38 +1,15 @@
 package com.master8.shana.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.Query
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import com.master8.shana.data.repository.MoviesRepositoryImpl
 import com.master8.shana.data.repository.converters.parseMovie
-import com.master8.shana.data.repository.converters.toMovie
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabaseImpl
-import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
-import com.master8.shana.data.source.firebase.database.dto.FirebaseSeriesDto
-import com.master8.shana.data.source.tmdb.createTMDbApiService
 import com.master8.shana.databinding.ActivityMainBinding
-import com.master8.shana.databinding.ItemMovieBinding
 import com.master8.shana.domain.entity.Movie
-import com.master8.shana.domain.usecase.AddGoodMovieUseCase
-import com.master8.shana.domain.usecase.AddNeedToWatchMovieUseCase
-import com.master8.shana.domain.usecase.PrepareMovieToAddUseCase
-import com.master8.shana.domain.usecase.SearchMoviesUseCase
-import com.master8.shana.ui.movie.MovieFirebaseAdapter
-import com.master8.shana.ui.movie.MovieViewHolder
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import java.util.*
+import com.master8.shana.ui.movie.MovieFirebaseRecyclerViewAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -64,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             .setLifecycleOwner(this)
             .build()
 
-        val adapter = MovieFirebaseAdapter(options)
+        val adapter = MovieFirebaseRecyclerViewAdapter(options)
 
         val layoutManager = LinearLayoutManager(this).apply {
             reverseLayout = true

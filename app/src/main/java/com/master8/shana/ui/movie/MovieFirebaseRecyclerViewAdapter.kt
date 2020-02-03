@@ -5,7 +5,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.master8.shana.domain.entity.Movie
 
-class MovieFirebaseAdapter(
+class MovieFirebaseRecyclerViewAdapter(
     options: FirebaseRecyclerOptions<Movie>
 ) : FirebaseRecyclerAdapter<Movie, MovieViewHolder>(options) {
 
