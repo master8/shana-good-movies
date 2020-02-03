@@ -1,4 +1,4 @@
-package com.master8.shana.ui.movie
+package com.master8.shana.ui.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

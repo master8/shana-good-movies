@@ -9,7 +9,7 @@ import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabaseImpl
 import com.master8.shana.databinding.ActivityMainBinding
 import com.master8.shana.domain.entity.Movie
-import com.master8.shana.ui.movie.MovieFirebaseRecyclerViewAdapter
+import com.master8.shana.ui.movies.MoviesFirebaseAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             .setLifecycleOwner(this)
             .build()
 
-        val adapter = MovieFirebaseRecyclerViewAdapter(options)
+        val adapter = MoviesFirebaseAdapter(options)
 
         val layoutManager = LinearLayoutManager(this).apply {
             reverseLayout = true
