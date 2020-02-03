@@ -25,14 +25,14 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = MoviesAdapter()
+//        val adapter = MoviesAdapter()
 
-        MainScope().launch {
-            val repository = MoviesRepositoryImpl(createTMDbApiService(), FirebaseRealtimeDatabaseImpl())
-            val search = SearchMoviesUseCase(repository)
-            val movies = search("star wars")
-            Log.d("mv8", "results ${movies}")
-            adapter.submitList(movies)
+//        MainScope().launch {
+//            val repository = MoviesRepositoryImpl(createTMDbApiService(), FirebaseRealtimeDatabaseImpl())
+//            val search = SearchMoviesUseCase(repository)
+//            val movies = search("star wars")
+//            Log.d("mv8", "results ${movies}")
+//            adapter.submitList(movies)
 
 //            val prepareMovieToAddUseCase = PrepareMovieToAddUseCase()
 
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 //
 //            val addNeedToWatchMovie = AddNeedToWatchMovieUseCase(repository, prepareMovieToAddUseCase)
 //            addNeedToWatchMovie(movies.last())
-        }
+//        }
 
 //        val firebaseRealtimeDatabase: FirebaseRealtimeDatabase = FirebaseRealtimeDatabaseImpl()
 //
@@ -53,11 +53,11 @@ class MainActivity : AppCompatActivity() {
 //
 //        val adapter = MoviesFirebaseAdapter(options)
 
-        val layoutManager = LinearLayoutManager(this).apply {
+//        val layoutManager = LinearLayoutManager(this).apply {
 //            reverseLayout = true
 //            stackFromEnd = true
-        }
-        binding.listMovies.layoutManager = layoutManager
-        binding.listMovies.adapter = adapter
+//        }
+//        binding.listMovies.layoutManager = layoutManager
+//        binding.listMovies.adapter = adapter
     }
 }

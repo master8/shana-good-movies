@@ -5,10 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_movies"
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/list_movies"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:listitem="@layout/item_movie"/>-->
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/search_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_movie"/>
+        android:name="com.master8.shana.ui.search.SearchFragment" />
+
 
 </LinearLayout>
