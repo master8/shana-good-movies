@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
         <variable
@@ -7,11 +9,36 @@
             type="com.master8.shana.ui.search.SearchViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools">
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_app_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:textColor="?colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_app_name_subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/app_name_subtitle"
+            android:textAllCaps="true"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_app_name" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_search"
@@ -19,13 +46,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             app:endIconMode="custom"
             app:endIconDrawable="@drawable/ic_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/text_app_name_subtitle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_search"
@@ -41,7 +68,7 @@
             android:id="@+id/list_movies"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             tools:listitem="@layout/item_movie"
             android:visibility="@{searchViewModel.isSearching() ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
