@@ -3,9 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="movie"
             type="com.master8.shana.domain.entity.Movie" />
+        <variable
+            name="viewModel"
+            type="com.master8.shana.ui.movies.MovieViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="horizontal"
@@ -102,6 +106,8 @@
             app:cornerRadius="18dp"
             app:icon="@drawable/ic_add"
             app:iconTint="?colorOnSurface"
+            android:visibility="@{movie.internalId == null ? View.VISIBLE : View.GONE}"
+            android:onClick="@{() -> viewModel.addNeedToWatchMovie(movie)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_poster"
             app:layout_constraintTop_toBottomOf="@id/text_name" />
@@ -123,6 +129,8 @@
             app:icon="@drawable/ic_check"
             app:iconTint="?colorOnSurface"
             app:backgroundTint="?colorSurface"
+            android:visibility="@{movie.internalId == null ? View.VISIBLE : View.GONE}"
+            android:onClick="@{() -> viewModel.addGoodMovie(movie)}"
             app:layout_constraintStart_toEndOf="@id/button_add_to_good_movie"
             app:layout_constraintTop_toTopOf="@id/button_add_to_good_movie"
             app:layout_constraintBottom_toBottomOf="@id/button_add_to_good_movie"/>

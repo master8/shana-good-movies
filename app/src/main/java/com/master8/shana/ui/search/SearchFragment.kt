@@ -10,11 +10,15 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.databinding.FragmentSearchBinding
+import com.master8.shana.ui.movies.MovieViewModel
 import com.master8.shana.ui.movies.MoviesAdapter
 
 class SearchFragment : Fragment() {
 
-    private val viewModel: SearchViewModel by viewModels() { ViewModelFactory(requireContext()) }
+    private val viewModelsFactory by lazy { ViewModelFactory(requireContext()) }
+
+    private val viewModel: SearchViewModel by viewModels() { viewModelsFactory }
+    private val movieViewModel: MovieViewModel by viewModels { viewModelsFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +26,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentSearchBinding.inflate(inflater, container, false)
-        val adapter = MoviesAdapter()
+        val adapter = MoviesAdapter(movieViewModel, viewLifecycleOwner)
 
         with(binding) {
             lifecycleOwner = viewLifecycleOwner

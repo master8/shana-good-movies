@@ -1,18 +1,22 @@
 package com.master8.shana.ui.movies
 
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.master8.shana.domain.entity.Movie
 
-class MoviesAdapter : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {
+class MoviesAdapter(
+    private val viewModel: MovieViewModel,
+    private val lifecycleOwner: LifecycleOwner
+) : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder.createFrom(parent)
+        return MovieViewHolder.createFrom(parent, lifecycleOwner)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), viewModel)
     }
 
     private class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
