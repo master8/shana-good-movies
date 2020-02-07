@@ -1,15 +1,17 @@
 package com.master8.shana.data.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.master8.shana.data.repository.converters.buildFirebaseMovieDto
 import com.master8.shana.data.repository.converters.toMovie
 import com.master8.shana.data.repository.converters.toSeries
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
-import com.master8.shana.data.source.firebase.database.dto.*
+import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
 import com.master8.shana.data.source.tmdb.TMDbApiService
 import com.master8.shana.data.source.tmdb.dto.MediaDto
 import com.master8.shana.data.source.tmdb.mediaTypeIsMovie
 import com.master8.shana.data.source.tmdb.mediaTypeIsTV
-import com.master8.shana.domain.entity.*
+import com.master8.shana.domain.entity.ChangedMovie
+import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,6 +20,12 @@ class MoviesRepositoryImpl(
     private val tmdbApiService: TMDbApiService,
     private val firebaseRealtimeDatabase: FirebaseRealtimeDatabase
 ) : MoviesRepository {
+
+    override val changedMovie = MutableLiveData<ChangedMovie>()
+
+    override fun movieWasChanged(changedMovie: ChangedMovie) {
+        this.changedMovie.value = changedMovie
+    }
 
     override suspend fun addGoodMovie(movie: Movie) {
         addMovieUse(movie, firebaseRealtimeDatabase::addGoodMovie)

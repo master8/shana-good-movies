@@ -1,5 +1,6 @@
 package com.master8.shana.domain.usecase
 
+import com.master8.shana.domain.entity.ChangedMovie
 import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.entity.WatchStatus
 import com.master8.shana.domain.repository.MoviesRepository
@@ -12,5 +13,6 @@ class AddGoodMovieUseCase(
     suspend operator fun invoke(movie: Movie) {
         val preparedMovie = prepareMovieToAddUseCase(movie, WatchStatus.WATCHED)
         moviesRepository.addGoodMovie(preparedMovie)
+        moviesRepository.movieWasChanged(ChangedMovie(movie, preparedMovie))
     }
 }

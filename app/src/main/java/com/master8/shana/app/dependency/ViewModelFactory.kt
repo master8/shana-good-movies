@@ -7,6 +7,7 @@ import com.master8.shana.data.repository.MoviesRepositoryImpl
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabaseImpl
 import com.master8.shana.data.source.tmdb.createTMDbApiService
+import com.master8.shana.domain.usecase.GetChangedMovieUseCase
 import com.master8.shana.domain.usecase.SearchMoviesUseCase
 import com.master8.shana.ui.search.SearchViewModel
 
@@ -22,7 +23,9 @@ class ViewModelFactory(
                 val repository = MoviesRepositoryImpl(createTMDbApiService(), firebaseRealtimeDatabase)
                 val searchMoviesUseCase = SearchMoviesUseCase(repository)
 
-                SearchViewModel(searchMoviesUseCase)
+                val getChangedMovieUseCase = GetChangedMovieUseCase(repository)
+
+                SearchViewModel(searchMoviesUseCase, getChangedMovieUseCase)
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
