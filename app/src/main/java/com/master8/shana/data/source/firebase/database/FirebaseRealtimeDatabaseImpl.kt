@@ -1,11 +1,13 @@
 package com.master8.shana.data.source.firebase.database
 
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.Query
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
 import com.master8.shana.data.source.firebase.database.dto.FirebaseSeriesDto
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
 
@@ -31,6 +33,28 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
             .child(PATH_SERIES)
             .child(series.internalId)
             .setValue(series)
+    }
+
+    override suspend fun getAllMovies(): List<FirebaseMovieDto> {
+        return goodMovies.getMovies() + needToWatchMovies.getMovies()
+    }
+
+    private suspend fun DatabaseReference.getMovies(): List<FirebaseMovieDto> = suspendCoroutine { continuation ->
+        this.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(databaesError: DatabaseError) {
+                continuation.resumeWithException(RuntimeException("Query was cancelled! ${databaesError.message}"))
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                continuation.resume(
+                    dataSnapshot
+                        .children
+                        .map { it.getValue(FirebaseMovieDto::class.java)!! }
+                )
+
+            }
+
+        })
     }
 
     private companion object {

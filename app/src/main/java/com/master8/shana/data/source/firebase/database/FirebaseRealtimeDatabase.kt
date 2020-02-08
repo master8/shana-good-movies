@@ -13,4 +13,6 @@ interface FirebaseRealtimeDatabase {
     fun addNeedToWatchMovie(movie: FirebaseMovieDto)
 
     fun addSeries(series: FirebaseSeriesDto)
+
+    suspend fun getAllMovies(): List<FirebaseMovieDto>
 }
