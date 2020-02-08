@@ -18,7 +18,7 @@ class SearchFragment : Fragment() {
 
     private val viewModelsFactory by lazy { ViewModelFactory(requireContext()) }
 
-    private val viewModel: SearchViewModel by viewModels() { viewModelsFactory }
+    private val viewModel: SearchViewModel by viewModels { viewModelsFactory }
     private val movieViewModel: MovieViewModel by viewModels { viewModelsFactory }
 
     override fun onCreateView(

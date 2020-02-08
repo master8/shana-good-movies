@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.master8.shana.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_needToWatchMoviesFragment"
+            app:destination="@id/needToWatchMoviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_goodMoviesFragment"
+            app:destination="@id/goodMoviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goodMoviesFragment"
+        android:name="com.master8.shana.ui.movies.added.GoodMoviesFragment"
+        tools:layout="@layout/fragment_movies"
+        android:label="GoodMoviesFragment" />
+    <fragment
+        android:id="@+id/needToWatchMoviesFragment"
+        android:name="com.master8.shana.ui.movies.added.NeedToWatchMoviesFragment"
+        tools:layout="@layout/fragment_movies"
+        android:label="NeedToWatchMoviesFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.master8.shana.ui.search.SearchFragment"
+        tools:layout="@layout/fragment_search"
+        android:label="SearchFragment" />
+</navigation>
