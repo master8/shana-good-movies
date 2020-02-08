@@ -18,5 +18,6 @@
         <item name="android:navigationBarColor">?android:colorBackground</item>
 
         <item name="colorPrimary">@color/color_primary</item>
+        <item name="android:colorEdgeEffect">?colorSurface</item>
     </style>
 </resources>
