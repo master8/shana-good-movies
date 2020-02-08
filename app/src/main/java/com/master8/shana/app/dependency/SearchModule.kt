@@ -8,7 +8,6 @@ class SearchModule(
 ) {
     private val searchMoviesUseCase by lazy { SearchMoviesUseCase(moviesModule.moviesRepository) }
 
-    val searchViewModel by lazy {
-        SearchViewModel(searchMoviesUseCase, moviesModule.getChangedMovieUseCase)
-    }
+    val searchViewModel: SearchViewModel
+        get() = SearchViewModel(searchMoviesUseCase, moviesModule.getChangedMovieUseCase)
 }

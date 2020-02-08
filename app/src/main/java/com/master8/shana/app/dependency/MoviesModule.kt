@@ -9,7 +9,8 @@ import com.master8.shana.ui.movies.MovieViewModel
 
 class MoviesModule {
 
-    val movieViewModel by lazy { MovieViewModel(addGoodMovieUseCase, addNeedToWatchMovieUseCase) }
+    val movieViewModel: MovieViewModel
+        get() = MovieViewModel(addGoodMovieUseCase, addNeedToWatchMovieUseCase)
 
     private val addNeedToWatchMovieUseCase by lazy { AddNeedToWatchMovieUseCase(moviesRepository, prepareMovieToAddUseCase) }
     private val addGoodMovieUseCase by lazy { AddGoodMovieUseCase(moviesRepository, prepareMovieToAddUseCase) }
