@@ -27,7 +27,7 @@ fun MediaDto.toSeries() = Series(
 fun SeasonDto.toMovie(relatedSeries: Series) = Movie(
     name,
     relatedSeries.originalName,
-    getYearFromTMDbDate(releaseDate),
+    releaseDate?.let { getYearFromTMDbDate(it) } ?: 0,
     createTMDbAbsoluteImageUri(poster),
     externalId = id,
     relatedSeries = relatedSeries,

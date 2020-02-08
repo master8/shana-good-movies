@@ -7,7 +7,7 @@ data class SeasonDto(
     val name: String,
 
     @SerializedName("air_date")
-    val releaseDate: String,
+    val releaseDate: String? = null,
 
     @SerializedName("episode_count")
     val episodeCount: Int,
