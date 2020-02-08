@@ -11,7 +11,7 @@ import com.master8.shana.domain.entity.Series
 fun MediaDto.toMovie() = Movie(
     name,
     originalName,
-    getYearFromTMDbDate(releaseDate!!),
+    releaseDate?.let { getYearFromTMDbDate(it) } ?: 0,
     createTMDbAbsoluteImageUri(poster),
     externalId = id
 )
@@ -19,7 +19,7 @@ fun MediaDto.toMovie() = Movie(
 fun MediaDto.toSeries() = Series(
     name,
     originalName,
-    getYearFromTMDbDate(releaseDate!!),
+    releaseDate?.let { getYearFromTMDbDate(it) } ?: 0,
     createTMDbAbsoluteImageUri(poster),
     externalId = id
 )
