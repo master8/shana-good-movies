@@ -3,6 +3,7 @@ package com.master8.shana.app
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.database.FirebaseDatabase
 import com.master8.shana.app.dependency.MoviesModule
 import com.master8.shana.app.dependency.SearchModule
 
@@ -14,6 +15,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
     }
 }
 
