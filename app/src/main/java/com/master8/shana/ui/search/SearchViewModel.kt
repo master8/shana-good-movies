@@ -26,6 +26,7 @@ class SearchViewModel(
     }
 
     fun search(query: String) = viewModelScope.launch {
+        _searchResults.value = null
         _isSearching.value = true
         if (query.isNotEmpty()) {
             _searchResults.value = searchMoviesUseCase(query)

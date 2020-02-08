@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -39,10 +40,20 @@ class SearchFragment : Fragment() {
                 adapter.submitList(movies)
             }
 
-            inputLayoutSearch.setEndIconOnClickListener {
-                adapter.submitList(null)
-                val query: String = binding.editSearch.text.toString()
+            val onSearch = {
+                val query: String = editSearch.text.toString()
                 viewModel.search(query)
+            }
+
+            inputLayoutSearch.setEndIconOnClickListener { onSearch() }
+            editSearch.setOnEditorActionListener { _, actionId, _ ->
+                return@setOnEditorActionListener when(actionId) {
+                    EditorInfo.IME_ACTION_SEARCH -> {
+                        onSearch()
+                        true
+                    }
+                    else -> false
+                }
             }
         }
 

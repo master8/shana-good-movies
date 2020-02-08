@@ -61,6 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@android:string/search_go"
+                android:imeOptions="actionSearch"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
