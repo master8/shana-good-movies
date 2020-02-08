@@ -40,6 +40,7 @@ class SearchFragment : Fragment() {
             }
 
             inputLayoutSearch.setEndIconOnClickListener {
+                adapter.submitList(null)
                 val query: String = binding.editSearch.text.toString()
                 viewModel.search(query)
             }

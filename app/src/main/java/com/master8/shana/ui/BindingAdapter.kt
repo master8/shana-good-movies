@@ -11,5 +11,5 @@ fun setImage(imageView: ImageView, image: Uri?) {
         Glide.with(imageView)
             .load(it)
             .into(imageView)
-    }
+    } ?: imageView.setImageDrawable(null)
 }
