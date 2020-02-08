@@ -26,40 +26,5 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_Shana_DayNight)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        val adapter = MoviesAdapter()
-
-//        MainScope().launch {
-//            val repository = MoviesRepositoryImpl(createTMDbApiService(), FirebaseRealtimeDatabaseImpl())
-//            val search = SearchMoviesUseCase(repository)
-//            val movies = search("star wars")
-//            Log.d("mv8", "results ${movies}")
-//            adapter.submitList(movies)
-
-//            val prepareMovieToAddUseCase = PrepareMovieToAddUseCase()
-
-//            val addGoodMovie = AddGoodMovieUseCase(repository, prepareMovieToAddUseCase)
-//            addGoodMovie(movies[0])
-//            addGoodMovie(movies[1])
-//
-//            val addNeedToWatchMovie = AddNeedToWatchMovieUseCase(repository, prepareMovieToAddUseCase)
-//            addNeedToWatchMovie(movies.last())
-//        }
-
-//        val firebaseRealtimeDatabase: FirebaseRealtimeDatabase = FirebaseRealtimeDatabaseImpl()
-//
-//        val options = FirebaseRecyclerOptions.Builder<Movie>()
-//            .setQuery(firebaseRealtimeDatabase.goodMovies.orderByChild("dateAdded"), ::parseMovie)
-//            .setLifecycleOwner(this)
-//            .build()
-//
-//        val adapter = MoviesFirebaseAdapter(options)
-
-//        val layoutManager = LinearLayoutManager(this).apply {
-//            reverseLayout = true
-//            stackFromEnd = true
-//        }
-//        binding.listMovies.layoutManager = layoutManager
-//        binding.listMovies.adapter = adapter
     }
 }

@@ -19,8 +19,5 @@ class MoviesModule {
 
     val getChangedMovieUseCase by lazy { GetChangedMovieUseCase(moviesRepository) }
     val moviesRepository by lazy { MoviesRepositoryImpl(createTMDbApiService(), firebaseRealtimeDatabase) }
-    private val firebaseRealtimeDatabase: FirebaseRealtimeDatabase by lazy { FirebaseRealtimeDatabaseImpl() }
-
-
-
+    val firebaseRealtimeDatabase: FirebaseRealtimeDatabase by lazy { FirebaseRealtimeDatabaseImpl() }
 }
