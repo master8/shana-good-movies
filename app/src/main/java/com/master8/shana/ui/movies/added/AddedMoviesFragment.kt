@@ -30,6 +30,8 @@ abstract class AddedMoviesFragment : Fragment() {
     ): View? {
         val binding = FragmentMoviesBinding.inflate(inflater, container, false)
 
+        binding.textTitle.text = getTitle()
+
         val firebaseRealtimeDatabase = requireContext().app.moviesModule.firebaseRealtimeDatabase
 
         val options = FirebaseRecyclerOptions.Builder<Movie>()
@@ -50,4 +52,5 @@ abstract class AddedMoviesFragment : Fragment() {
     }
 
     protected abstract fun getMoviesQuery(database: FirebaseRealtimeDatabase): Query
+    protected abstract fun getTitle(): String
 }
