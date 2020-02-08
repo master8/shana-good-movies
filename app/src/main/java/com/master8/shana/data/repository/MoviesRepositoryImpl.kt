@@ -55,6 +55,16 @@ class MoviesRepositoryImpl(
             }
         }
 
+        val addedMovies = firebaseRealtimeDatabase.getAllMovies()
+            .filter { it.externalId != null }
+
+        for (i in movies.indices) {
+            val addedMovie = addedMovies.find { it.externalId == movies[i].externalId }
+            addedMovie?.let {
+                movies[i] = it.toMovie()
+            }
+        }
+
         return movies
     }
 
