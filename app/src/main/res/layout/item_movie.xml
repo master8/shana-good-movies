@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="21dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:alpha="0.4"
             android:fontFamily="sans-serif-light"
@@ -52,7 +52,7 @@
             app:layout_constraintBottom_toTopOf="@+id/text_original_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_poster"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_poster"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="2020" />
 
@@ -81,7 +81,7 @@
             android:alpha="0.7"
             android:text="@{movie.name}"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/button_add"
+            app:layout_constraintBottom_toTopOf="@+id/button_add_to_good_movie"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_poster"
             app:layout_constraintTop_toBottomOf="@id/text_original_name"
@@ -106,9 +106,9 @@
             app:cornerRadius="18dp"
             app:icon="@drawable/ic_add"
             app:iconTint="?colorOnSurface"
-            android:visibility="@{movie.internalId == null ? View.VISIBLE : View.GONE}"
+            android:visibility="@{movie.internalId == null ? View.VISIBLE : movie.externalId == null ? View.INVISIBLE : View.GONE}"
             android:onClick="@{() -> viewModel.addNeedToWatchMovie(movie)}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/card_poster"
             app:layout_constraintStart_toEndOf="@id/card_poster"
             app:layout_constraintTop_toBottomOf="@id/text_name" />
 
@@ -133,7 +133,7 @@
             app:iconTint="?colorOnSurface"
             android:visibility="@{movie.externalId == null ? View.VISIBLE : View.GONE}"
             android:onClick="@{() -> viewModel.linkMovie(movie)}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/card_poster"
             app:layout_constraintStart_toEndOf="@id/card_poster"
             app:layout_constraintTop_toBottomOf="@id/text_name" />
 

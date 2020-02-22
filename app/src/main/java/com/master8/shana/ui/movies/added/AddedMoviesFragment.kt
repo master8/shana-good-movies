@@ -8,15 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.Query
+import com.master8.shana.R
 import com.master8.shana.app.app
 import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.data.repository.converters.parseMovie
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.databinding.FragmentMoviesBinding
 import com.master8.shana.domain.entity.Movie
+import com.master8.shana.ui.EventObserver
 import com.master8.shana.ui.linkmovie.LinkMoviesViewModel
 import com.master8.shana.ui.movies.MovieViewModel
 import com.master8.shana.ui.movies.MoviesFirebaseAdapter
@@ -53,10 +56,10 @@ abstract class AddedMoviesFragment : Fragment() {
         binding.listMovies.layoutManager = layoutManager
         binding.listMovies.adapter = adapter
 
-        viewModel.onLinkMovie.observe(viewLifecycleOwner) {
+        viewModel.onLinkMovie.observe(viewLifecycleOwner, EventObserver {
             linkMovieViewModel.searchByMovie(it)
-            //TODO navigate
-        }
+            findNavController().navigate(R.id.linkMovieFragment)
+        })
 
         return binding.root
     }

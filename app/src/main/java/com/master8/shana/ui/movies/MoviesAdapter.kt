@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.master8.shana.domain.entity.Movie
 
-class MoviesAdapter(
+open class MoviesAdapter(
     private val viewModel: MovieViewModel,
     private val lifecycleOwner: LifecycleOwner
 ) : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {

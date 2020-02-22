@@ -8,6 +8,7 @@ import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.usecase.AddGoodMovieUseCase
 import com.master8.shana.domain.usecase.AddNeedToWatchMovieUseCase
 import com.master8.shana.domain.usecase.SearchByMovieUseCase
+import com.master8.shana.ui.Event
 import kotlinx.coroutines.launch
 
 class MovieViewModel(
@@ -15,8 +16,8 @@ class MovieViewModel(
     private val addNeedToWatchMovieUseCase: AddNeedToWatchMovieUseCase
 ) : ViewModel() {
 
-    private val _onLinkMovie = MutableLiveData<Movie>()
-    val onLinkMovie: LiveData<Movie> = _onLinkMovie
+    private val _onLinkMovie = MutableLiveData<Event<Movie>>()
+    val onLinkMovie: LiveData<Event<Movie>> = _onLinkMovie
 
     fun addGoodMovie(movie: Movie) = viewModelScope.launch {
         addGoodMovieUseCase(movie)
@@ -27,6 +28,6 @@ class MovieViewModel(
     }
 
     fun linkMovie(movie: Movie) = viewModelScope.launch {
-        _onLinkMovie.value = movie
+        _onLinkMovie.value = Event(movie)
     }
 }

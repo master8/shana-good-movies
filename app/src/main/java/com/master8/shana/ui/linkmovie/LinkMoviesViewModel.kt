@@ -19,6 +19,7 @@ class LinkMoviesViewModel(
     val searchResults: LiveData<List<Movie>> = _searchResults
 
     fun searchByMovie(movie: Movie) = viewModelScope.launch {
+        _searchResults.value = null
         _originalMovie.value = movie
         _searchResults.value = searchByMovieUseCase(movie)
     }

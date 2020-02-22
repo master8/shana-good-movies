@@ -24,15 +24,27 @@
         android:id="@+id/goodMoviesFragment"
         android:name="com.master8.shana.ui.movies.added.GoodMoviesFragment"
         tools:layout="@layout/fragment_movies"
-        android:label="GoodMoviesFragment" />
+        android:label="GoodMoviesFragment" >
+        <action
+            android:id="@+id/action_goodMoviesFragment_to_linkMovieFragment"
+            app:destination="@id/linkMovieFragment" />
+    </fragment>
     <fragment
         android:id="@+id/needToWatchMoviesFragment"
         android:name="com.master8.shana.ui.movies.added.NeedToWatchMoviesFragment"
         tools:layout="@layout/fragment_movies"
-        android:label="NeedToWatchMoviesFragment" />
+        android:label="NeedToWatchMoviesFragment" >
+        <action
+            android:id="@+id/action_needToWatchMoviesFragment_to_linkMovieFragment"
+            app:destination="@id/linkMovieFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.master8.shana.ui.search.SearchFragment"
         tools:layout="@layout/fragment_search"
         android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/linkMovieFragment"
+        android:name="com.master8.shana.ui.linkmovie.LinkMovieFragment"
+        android:label="LinkMovieFragment" />
 </navigation>
