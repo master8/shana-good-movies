@@ -8,7 +8,7 @@ import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.usecase.SearchByMovieUseCase
 import kotlinx.coroutines.launch
 
-class LinkMoviesViewModel(
+class LinkMovieViewModel(
     private val searchByMovieUseCase: SearchByMovieUseCase
 ): ViewModel() {
 

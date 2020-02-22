@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.master8.shana.app.app
-import com.master8.shana.ui.linkmovie.LinkMoviesViewModel
+import com.master8.shana.ui.linkmovie.LinkMovieViewModel
 import com.master8.shana.ui.movies.MovieViewModel
 import com.master8.shana.ui.search.SearchViewModel
 
@@ -27,14 +27,14 @@ class ViewModelFactory(
             moviesModule.getChangedMovieUseCase
         )
 
-    private val linkMovieViewModel: LinkMoviesViewModel
-        get() = LinkMoviesViewModel(searchModule.searchByMovieUseCase)
+    private val linkMovieViewModel: LinkMovieViewModel
+        get() = LinkMovieViewModel(searchModule.searchByMovieUseCase)
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
         when {
             isAssignableFrom(SearchViewModel::class.java) -> { searchViewModel }
             isAssignableFrom(MovieViewModel::class.java) -> { movieViewModel }
-            isAssignableFrom(LinkMoviesViewModel::class.java) -> { linkMovieViewModel }
+            isAssignableFrom(LinkMovieViewModel::class.java) -> { linkMovieViewModel }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     } as T

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -20,7 +19,7 @@ import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.databinding.FragmentMoviesBinding
 import com.master8.shana.domain.entity.Movie
 import com.master8.shana.ui.EventObserver
-import com.master8.shana.ui.linkmovie.LinkMoviesViewModel
+import com.master8.shana.ui.linkmovie.LinkMovieViewModel
 import com.master8.shana.ui.movies.MovieViewModel
 import com.master8.shana.ui.movies.MoviesFirebaseAdapter
 
@@ -29,7 +28,7 @@ abstract class AddedMoviesFragment : Fragment() {
     private val viewModelFactory by lazy { ViewModelFactory(requireContext()) }
 
     private val viewModel by viewModels<MovieViewModel> { viewModelFactory }
-    private val linkMovieViewModel by activityViewModels<LinkMoviesViewModel> { viewModelFactory }
+    private val linkMovieViewModel by activityViewModels<LinkMovieViewModel> { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,

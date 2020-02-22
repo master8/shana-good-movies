@@ -11,7 +11,6 @@ import androidx.lifecycle.observe
 import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.databinding.FragmentLinkMovieBinding
 import com.master8.shana.ui.movies.MovieViewModel
-import com.master8.shana.ui.movies.MoviesAdapter
 
 
 class LinkMovieFragment : Fragment() {
@@ -19,7 +18,7 @@ class LinkMovieFragment : Fragment() {
     private val viewModelFactory by lazy { ViewModelFactory(requireContext()) }
 
     private val movieViewModel by viewModels<MovieViewModel> { viewModelFactory }
-    private val linkMovieViewModel by activityViewModels<LinkMoviesViewModel> { viewModelFactory }
+    private val linkMovieViewModel by activityViewModels<LinkMovieViewModel> { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
