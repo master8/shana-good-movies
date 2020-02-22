@@ -16,12 +16,26 @@ class ViewModelFactory(
     context: Context
 ) : ViewModelProvider.Factory {
 
-    private val app = context.app
+    private val moviesModule = context.app.moviesModule
+    private val searchModule = context.app.searchModule
+
+    private val movieViewModel: MovieViewModel
+        get() = MovieViewModel(
+            moviesModule.addGoodMovieUseCase,
+            moviesModule.addNeedToWatchMovieUseCase,
+            searchModule.searchByMovieUseCase
+        )
+
+    private val searchViewModel: SearchViewModel
+        get() = SearchViewModel(
+            searchModule.searchMoviesUseCase,
+            moviesModule.getChangedMovieUseCase
+        )
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
         when {
-            isAssignableFrom(SearchViewModel::class.java) -> { app.searchModule.searchViewModel }
-            isAssignableFrom(MovieViewModel::class.java) -> { app.moviesModule.movieViewModel }
+            isAssignableFrom(SearchViewModel::class.java) -> { searchViewModel }
+            isAssignableFrom(MovieViewModel::class.java) -> { movieViewModel }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     } as T
