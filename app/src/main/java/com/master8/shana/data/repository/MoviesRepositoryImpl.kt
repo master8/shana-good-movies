@@ -28,20 +28,28 @@ class MoviesRepositoryImpl(
     }
 
     override suspend fun addGoodMovie(movie: Movie) {
-        addMovieUse(movie, firebaseRealtimeDatabase::addGoodMovie)
+        putMovieUse(movie, firebaseRealtimeDatabase::putGoodMovie)
     }
 
     override suspend fun addNeedToWatchMovie(movie: Movie) {
-        addMovieUse(movie, firebaseRealtimeDatabase::addNeedToWatchMovie)
+        putMovieUse(movie, firebaseRealtimeDatabase::putNeedToWatchMovie)
     }
 
-    private fun addMovieUse(movie: Movie, addMovie: (FirebaseMovieDto) -> Unit) {
+    override suspend fun updateGoodMovie(updatedMovie: Movie) {
+        putMovieUse(updatedMovie, firebaseRealtimeDatabase::putGoodMovie)
+    }
+
+    override suspend fun updateNeedToWatchMovie(updatedMovie: Movie) {
+        putMovieUse(updatedMovie, firebaseRealtimeDatabase::putNeedToWatchMovie)
+    }
+
+    private fun putMovieUse(movie: Movie, putMovie: (FirebaseMovieDto) -> Unit) {
         val movieDto =
             buildFirebaseMovieDto(
                 movie
             )
-        addMovie(movieDto)
-        movieDto.relatedSeries?.let { firebaseRealtimeDatabase.addSeries(it) }
+        putMovie(movieDto)
+        movieDto.relatedSeries?.let { firebaseRealtimeDatabase.putSeries(it) }
     }
 
     override suspend fun searchMovies(query: String): List<Movie> {

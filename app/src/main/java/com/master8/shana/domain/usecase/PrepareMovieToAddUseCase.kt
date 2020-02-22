@@ -5,16 +5,13 @@ import com.master8.shana.domain.entity.Series
 import com.master8.shana.domain.entity.WatchStatus
 import java.util.*
 
-class PrepareMovieToAddUseCase {
+class PrepareMovieToAddUseCase(
+    private val prepareSeriesToAddUseCase: PrepareSeriesToAddUseCase
+) {
 
     operator fun invoke(movie: Movie, watchStatus: WatchStatus): Movie {
-        val preparedRelatedSeries = movie.relatedSeries?.let { prepareSeries(it) }
+        val preparedRelatedSeries = movie.relatedSeries?.let { prepareSeriesToAddUseCase(it) }
         return prepareMovie(movie, watchStatus, preparedRelatedSeries)
-    }
-
-    private fun prepareSeries(series: Series) = when {
-        series.isNotAddedBefore() -> series.copy(internalId = generateInternalId())
-        else -> series
     }
 
     private fun prepareMovie(movie: Movie, watchStatus: WatchStatus, relatedSeries: Series?) = when {
@@ -31,7 +28,6 @@ class PrepareMovieToAddUseCase {
         else -> movie
     }
 
-    private fun Series.isNotAddedBefore() = this.internalId == null
     private fun Movie.isNotAddedBefore() = this.internalId == null
     private fun Movie.inNotStatus(watchStatus: WatchStatus) = this.watchStatus == watchStatus
 

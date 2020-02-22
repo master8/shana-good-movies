@@ -11,7 +11,8 @@ class MoviesModule {
     val addNeedToWatchMovieUseCase by lazy { AddNeedToWatchMovieUseCase(moviesRepository, prepareMovieToAddUseCase) }
     val addGoodMovieUseCase by lazy { AddGoodMovieUseCase(moviesRepository, prepareMovieToAddUseCase) }
 
-    private val prepareMovieToAddUseCase by lazy { PrepareMovieToAddUseCase() }
+    private val prepareMovieToAddUseCase by lazy { PrepareMovieToAddUseCase(prepareSeriesToAddUseCase) }
+    private val prepareSeriesToAddUseCase by lazy { PrepareSeriesToAddUseCase() }
 
     val getChangedMovieUseCase by lazy { GetChangedMovieUseCase(moviesRepository) }
     val moviesRepository by lazy { MoviesRepositoryImpl(createTMDbApiService(), firebaseRealtimeDatabase) }

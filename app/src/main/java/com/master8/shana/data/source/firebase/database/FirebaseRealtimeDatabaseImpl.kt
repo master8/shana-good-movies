@@ -16,19 +16,19 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
     override val goodMovies: DatabaseReference by lazy { database.child(PATH_GOOD_MOVIES) }
     override val needToWatchMovies: DatabaseReference by lazy { database.child(PATH_NEED_TO_WATCH_MOVIES) }
 
-    override fun addGoodMovie(movie: FirebaseMovieDto) {
+    override fun putGoodMovie(movie: FirebaseMovieDto) {
         goodMovies
             .child(movie.internalId)
             .setValue(movie)
     }
 
-    override fun addNeedToWatchMovie(movie: FirebaseMovieDto) {
+    override fun putNeedToWatchMovie(movie: FirebaseMovieDto) {
         needToWatchMovies
             .child(movie.internalId)
             .setValue(movie)
     }
 
-    override fun addSeries(series: FirebaseSeriesDto) {
+    override fun putSeries(series: FirebaseSeriesDto) {
         database
             .child(PATH_SERIES)
             .child(series.internalId)

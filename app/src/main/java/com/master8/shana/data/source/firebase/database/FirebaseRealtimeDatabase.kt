@@ -9,10 +9,10 @@ interface FirebaseRealtimeDatabase {
     val goodMovies: Query
     val needToWatchMovies: Query
 
-    fun addGoodMovie(movie: FirebaseMovieDto)
-    fun addNeedToWatchMovie(movie: FirebaseMovieDto)
+    fun putGoodMovie(movie: FirebaseMovieDto)
+    fun putNeedToWatchMovie(movie: FirebaseMovieDto)
 
-    fun addSeries(series: FirebaseSeriesDto)
+    fun putSeries(series: FirebaseSeriesDto)
 
     suspend fun getAllMovies(): List<FirebaseMovieDto>
 }
