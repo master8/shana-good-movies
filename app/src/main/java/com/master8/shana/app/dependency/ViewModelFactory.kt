@@ -28,7 +28,10 @@ class ViewModelFactory(
         )
 
     private val linkMovieViewModel: LinkMovieViewModel
-        get() = LinkMovieViewModel(searchModule.searchByMovieUseCase)
+        get() = LinkMovieViewModel(
+            searchModule.searchByMovieUseCase,
+            moviesModule.updateMovieUseCase
+        )
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
         when {

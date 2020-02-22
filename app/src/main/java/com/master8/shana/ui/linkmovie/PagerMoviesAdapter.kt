@@ -2,6 +2,7 @@ package com.master8.shana.ui.linkmovie
 
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
+import com.master8.shana.domain.entity.Movie
 import com.master8.shana.ui.movies.MovieViewHolder
 import com.master8.shana.ui.movies.MovieViewModel
 import com.master8.shana.ui.movies.MoviesAdapter
@@ -21,4 +22,6 @@ class PagerMoviesAdapter(
             )
         }
     }
+
+    fun getMovie(position: Int): Movie = getItem(position)
 }

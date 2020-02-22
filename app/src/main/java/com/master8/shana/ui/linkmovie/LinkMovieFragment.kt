@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.databinding.FragmentLinkMovieBinding
 import com.master8.shana.ui.movies.MovieViewModel
@@ -39,6 +40,11 @@ class LinkMovieFragment : Fragment() {
 
             linkMovieViewModel.searchResults.observe(viewLifecycleOwner) { movies ->
                 adapter.submitList(movies)
+            }
+
+            buttonSaveLink.setOnClickListener {
+                linkMovieViewModel.linkWithMovie(adapter.getMovie(pagerMovies.currentItem))
+                findNavController().popBackStack()
             }
         }
 
