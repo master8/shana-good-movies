@@ -132,7 +132,7 @@
             app:icon="@drawable/ic_link"
             app:iconTint="?colorOnSurface"
             android:visibility="@{movie.externalId == null ? View.VISIBLE : View.GONE}"
-            android:onClick="@{() -> viewModel.searchByMovie(movie)}"
+            android:onClick="@{() -> viewModel.linkMovie(movie)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_poster"
             app:layout_constraintTop_toBottomOf="@id/text_name" />

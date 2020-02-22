@@ -4,11 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.master8.shana.app.app
-import com.master8.shana.data.repository.MoviesRepositoryImpl
-import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
-import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabaseImpl
-import com.master8.shana.data.source.tmdb.createTMDbApiService
-import com.master8.shana.domain.usecase.*
+import com.master8.shana.ui.linkmovie.LinkMoviesViewModel
 import com.master8.shana.ui.movies.MovieViewModel
 import com.master8.shana.ui.search.SearchViewModel
 
@@ -22,8 +18,7 @@ class ViewModelFactory(
     private val movieViewModel: MovieViewModel
         get() = MovieViewModel(
             moviesModule.addGoodMovieUseCase,
-            moviesModule.addNeedToWatchMovieUseCase,
-            searchModule.searchByMovieUseCase
+            moviesModule.addNeedToWatchMovieUseCase
         )
 
     private val searchViewModel: SearchViewModel
@@ -32,10 +27,14 @@ class ViewModelFactory(
             moviesModule.getChangedMovieUseCase
         )
 
+    private val linkMovieViewModel: LinkMoviesViewModel
+        get() = LinkMoviesViewModel(searchModule.searchByMovieUseCase)
+
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
         when {
             isAssignableFrom(SearchViewModel::class.java) -> { searchViewModel }
             isAssignableFrom(MovieViewModel::class.java) -> { movieViewModel }
+            isAssignableFrom(LinkMoviesViewModel::class.java) -> { linkMovieViewModel }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     } as T

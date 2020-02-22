@@ -1,5 +1,7 @@
 package com.master8.shana.ui.movies
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master8.shana.domain.entity.Movie
@@ -10,9 +12,11 @@ import kotlinx.coroutines.launch
 
 class MovieViewModel(
     private val addGoodMovieUseCase: AddGoodMovieUseCase,
-    private val addNeedToWatchMovieUseCase: AddNeedToWatchMovieUseCase,
-    private val searchByMovieUseCase: SearchByMovieUseCase
+    private val addNeedToWatchMovieUseCase: AddNeedToWatchMovieUseCase
 ) : ViewModel() {
+
+    private val _onLinkMovie = MutableLiveData<Movie>()
+    val onLinkMovie: LiveData<Movie> = _onLinkMovie
 
     fun addGoodMovie(movie: Movie) = viewModelScope.launch {
         addGoodMovieUseCase(movie)
@@ -22,7 +26,7 @@ class MovieViewModel(
         addNeedToWatchMovieUseCase(movie)
     }
 
-    fun searchByMovie(movie: Movie) = viewModelScope.launch {
-        searchByMovieUseCase(movie)
+    fun linkMovie(movie: Movie) = viewModelScope.launch {
+        _onLinkMovie.value = movie
     }
 }
