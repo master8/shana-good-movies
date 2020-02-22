@@ -66,10 +66,24 @@ class MoviesRepositoryImpl(
         val addedMovies = firebaseRealtimeDatabase.getAllMovies()
             .filter { it.externalId != null }
 
+        val addedSeries = firebaseRealtimeDatabase.getAllSeries()
+            .filter { it.externalId != null }
+
         for (i in movies.indices) {
             val addedMovie = addedMovies.find { it.externalId == movies[i].externalId }
-            addedMovie?.let {
-                movies[i] = it.toMovie()
+
+            if (addedMovie != null) {
+                movies[i] = addedMovie.toMovie()
+            } else {
+                movies[i].relatedSeries?.let { relatedSeries ->
+
+                    val addedSerie = addedSeries.find { it.externalId == relatedSeries.externalId }
+                    addedSerie?.let {
+                        movies[i] = movies[i].copy(
+                            relatedSeries = it.toSeries()
+                        )
+                    }
+                }
             }
         }
 

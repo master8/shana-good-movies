@@ -15,4 +15,5 @@ interface FirebaseRealtimeDatabase {
     fun putSeries(series: FirebaseSeriesDto)
 
     suspend fun getAllMovies(): List<FirebaseMovieDto>
+    suspend fun getAllSeries(): List<FirebaseSeriesDto>
 }

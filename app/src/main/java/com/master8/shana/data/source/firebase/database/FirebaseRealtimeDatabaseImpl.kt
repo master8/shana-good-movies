@@ -15,6 +15,7 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
 
     override val goodMovies: DatabaseReference by lazy { database.child(PATH_GOOD_MOVIES) }
     override val needToWatchMovies: DatabaseReference by lazy { database.child(PATH_NEED_TO_WATCH_MOVIES) }
+    private val series: DatabaseReference by lazy { database.child(PATH_SERIES) }
 
     override fun putGoodMovie(movie: FirebaseMovieDto) {
         goodMovies
@@ -29,14 +30,17 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
     }
 
     override fun putSeries(series: FirebaseSeriesDto) {
-        database
-            .child(PATH_SERIES)
+        this.series
             .child(series.internalId)
             .setValue(series)
     }
 
     override suspend fun getAllMovies(): List<FirebaseMovieDto> {
         return goodMovies.getMovies() + needToWatchMovies.getMovies()
+    }
+
+    override suspend fun getAllSeries(): List<FirebaseSeriesDto> {
+        return series.getSeries()
     }
 
     private suspend fun DatabaseReference.getMovies(): List<FirebaseMovieDto> = suspendCoroutine { continuation ->
@@ -50,6 +54,24 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
                     dataSnapshot
                         .children
                         .map { it.getValue(FirebaseMovieDto::class.java)!! }
+                )
+
+            }
+
+        })
+    }
+
+    private suspend fun DatabaseReference.getSeries(): List<FirebaseSeriesDto> = suspendCoroutine { continuation ->
+        this.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(databaesError: DatabaseError) {
+                continuation.resumeWithException(RuntimeException("Query was cancelled! ${databaesError.message}"))
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                continuation.resume(
+                    dataSnapshot
+                        .children
+                        .map { it.getValue(FirebaseSeriesDto::class.java)!! }
                 )
 
             }
