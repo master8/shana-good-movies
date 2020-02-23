@@ -1,6 +1,8 @@
 package com.master8.shana.ui.movies.added
 
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +32,11 @@ abstract class AddedMoviesFragment : Fragment() {
     private val viewModel by viewModels<MovieViewModel> { viewModelFactory }
     private val linkMovieViewModel by activityViewModels<LinkMovieViewModel> { viewModelFactory }
 
+    private val adapter by lazy { createMoviesAdapter() }
+
+    private lateinit var layoutManager: LinearLayoutManager
+    private var listMovieState: Parcelable? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,19 +46,11 @@ abstract class AddedMoviesFragment : Fragment() {
 
         binding.textTitle.text = getTitle()
 
-        val firebaseRealtimeDatabase = requireContext().app.moviesModule.firebaseRealtimeDatabase
-
-        val options = FirebaseRecyclerOptions.Builder<Movie>()
-            .setQuery(getMoviesQuery(firebaseRealtimeDatabase).orderByChild("dateAdded"), ::parseMovie)
-            .setLifecycleOwner(this)
-            .build()
-
-        val adapter = MoviesFirebaseAdapter(options, viewModel, viewLifecycleOwner)
-
-        val layoutManager = LinearLayoutManager(requireContext()).apply {
+        layoutManager = LinearLayoutManager(requireContext()).apply {
             reverseLayout = true
             stackFromEnd = true
         }
+
         binding.listMovies.layoutManager = layoutManager
         binding.listMovies.adapter = adapter
 
@@ -61,6 +60,25 @@ abstract class AddedMoviesFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun createMoviesAdapter(): MoviesFirebaseAdapter {
+        val firebaseRealtimeDatabase = requireContext().app.moviesModule.firebaseRealtimeDatabase
+
+        val options = FirebaseRecyclerOptions.Builder<Movie>()
+            .setQuery(getMoviesQuery(firebaseRealtimeDatabase).orderByChild("dateAdded"), ::parseMovie)
+            .setLifecycleOwner(this)
+            .build()
+
+        return MoviesFirebaseAdapter(options, viewModel, viewLifecycleOwner) {
+            listMovieState?.let { layoutManager.onRestoreInstanceState(it) }
+            listMovieState = null
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        listMovieState = layoutManager.onSaveInstanceState()
     }
 
     protected abstract fun getMoviesQuery(database: FirebaseRealtimeDatabase): Query
