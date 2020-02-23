@@ -1,6 +1,7 @@
 package com.master8.shana.data.source.tmdb
 
 import android.net.Uri
+import androidx.core.text.isDigitsOnly
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
@@ -32,6 +33,10 @@ fun mediaTypeIsMovie(mediaType: String) = mediaType == MEDIA_TYPE_MOVIE
 fun mediaTypeIsTV(mediaType: String) = mediaType == MEDIA_TYPE_TV
 
 fun getYearFromTMDbDate(date: String): Int {
+    if (date.isBlank()) {
+        return 0
+    }
+
     return Calendar.getInstance()
         .apply { time = dateFormatter.parse(date) }
         .get(Calendar.YEAR)
