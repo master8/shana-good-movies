@@ -70,7 +70,7 @@ abstract class AddedMoviesFragment : Fragment() {
             .setLifecycleOwner(this)
             .build()
 
-        return MoviesFirebaseAdapter(options, viewModel, viewLifecycleOwner) {
+        return MoviesFirebaseAdapter(options, viewModel, this) {
             listMovieState?.let { layoutManager.onRestoreInstanceState(it) }
             listMovieState = null
         }
