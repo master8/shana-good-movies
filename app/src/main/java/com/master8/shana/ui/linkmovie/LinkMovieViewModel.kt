@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.usecase.SearchByMovieUseCase
-import com.master8.shana.domain.usecase.UpdateMovieUseCase
+import com.master8.shana.domain.usecase.LinkMovieUseCase
 import kotlinx.coroutines.launch
 
 class LinkMovieViewModel(
     private val searchByMovieUseCase: SearchByMovieUseCase,
-    private val updateMovieUseCase: UpdateMovieUseCase
+    private val linkMovieUseCase: LinkMovieUseCase
 ): ViewModel() {
 
     private val _originalMovie = MutableLiveData<Movie>()
@@ -28,7 +28,7 @@ class LinkMovieViewModel(
 
     fun linkWithMovie(selectedMovie: Movie) = viewModelScope.launch {
         originalMovie.value?.let {
-            updateMovieUseCase(it, selectedMovie)
+            linkMovieUseCase(it, selectedMovie)
         }
     }
 }
