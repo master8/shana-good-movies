@@ -11,6 +11,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.databinding.FragmentLinkMovieBinding
+import com.master8.shana.domain.entity.Movie
 import com.master8.shana.ui.movies.MovieViewModel
 
 
@@ -38,8 +39,11 @@ class LinkMovieFragment : Fragment() {
                 originalMovie = it
             }
 
-            linkMovieViewModel.searchResults.observe(viewLifecycleOwner) { movies ->
+            linkMovieViewModel.searchResults.observe(viewLifecycleOwner) { movies: List<Movie>? ->
                 adapter.submitList(movies)
+                movies?.let {
+                    buttonSaveLink.isEnabled = true
+                }
             }
 
             buttonSaveLink.setOnClickListener {
