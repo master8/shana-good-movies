@@ -37,7 +37,8 @@ class ViewModelFactory(
 
     private val movieDialogViewModel: MovieDialogViewModel
         get() = MovieDialogViewModel(
-            moviesModule.deleteMovieUseCase
+            moviesModule.deleteMovieUseCase,
+            moviesModule.moveToWatchMovieUseCase
         )
 
     @Suppress("UNCHECKED_CAST")

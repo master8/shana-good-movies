@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.usecase.DeleteMovieUseCase
+import com.master8.shana.domain.usecase.MoveToGoodMoviesUseCase
 import com.master8.shana.ui.Event
 import kotlinx.coroutines.launch
 
 class MovieDialogViewModel(
-    private val deleteMovieUseCase: DeleteMovieUseCase
+    private val deleteMovieUseCase: DeleteMovieUseCase,
+    private val moveToGoodMoviesUseCase: MoveToGoodMoviesUseCase
 ) : ViewModel() {
 
     private val _selectedMove = MutableLiveData<Movie>()
@@ -28,7 +30,8 @@ class MovieDialogViewModel(
         _closeDialog.value = Event(true)
     }
 
-    fun moveToGoodMovies(movie: Movie) {
-
+    fun moveToGoodMovies(movie: Movie) = viewModelScope.launch {
+        moveToGoodMoviesUseCase(movie)
+        _closeDialog.value = Event(true)
     }
 }

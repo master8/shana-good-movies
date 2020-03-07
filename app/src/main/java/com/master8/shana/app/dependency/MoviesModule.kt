@@ -11,6 +11,7 @@ class MoviesModule {
     val addGoodMovieUseCase by lazy { AddGoodMovieUseCase(moviesRepository, prepareMovieToAddUseCase) }
     val updateMovieUseCase by lazy { LinkMovieUseCase(moviesRepository, prepareSeriesToAddUseCase) }
     val deleteMovieUseCase by lazy { DeleteMovieUseCase(moviesRepository) }
+    val moveToWatchMovieUseCase by lazy { MoveToGoodMoviesUseCase(moviesRepository) }
 
     private val prepareMovieToAddUseCase by lazy { PrepareMovieToAddUseCase(prepareSeriesToAddUseCase) }
     private val prepareSeriesToAddUseCase by lazy { PrepareSeriesToAddUseCase() }

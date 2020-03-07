@@ -2,6 +2,7 @@
 <layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
+        <import type="com.master8.shana.domain.entity.WatchStatus"/>
         <variable
             name="movie"
             type="com.master8.shana.domain.entity.Movie" />
@@ -104,6 +105,7 @@
             android:textSize="12sp"
             app:icon="@drawable/ic_check"
             app:iconPadding="16dp"
+            android:visibility="@{movie.watchStatus == WatchStatus.NOT_WATCHED ? View.VISIBLE : View.GONE}"
             android:textColor="?attr/colorControlNormal"
             android:onClick="@{() -> viewModel.moveToGoodMovies(movie)}"
             android:textAlignment="textStart"
@@ -121,6 +123,7 @@
             android:paddingEnd="16dp"
             android:paddingRight="16dp"
             android:layout_marginBottom="16dp"
+            app:layout_goneMarginTop="16dp"
             android:textSize="12sp"
             app:icon="@drawable/ic_delete"
             app:iconPadding="16dp"
