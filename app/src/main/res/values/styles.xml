@@ -1,3 +1,4 @@
 <resources>
-
+    <style name="Widget.Shana.BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    </style>
 </resources>
