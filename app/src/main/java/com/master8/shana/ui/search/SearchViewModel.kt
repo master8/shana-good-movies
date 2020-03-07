@@ -30,6 +30,6 @@ class SearchViewModel(
     }
 
     override fun onMovieChanged(changedMovie: ChangedMovie) {
-        _searchResults.changeItem(changedMovie.oldMovie, changedMovie.newMovie)
+        _searchResults?.changeItem(changedMovie.oldMovie, changedMovie.newMovie)
     }
 }
