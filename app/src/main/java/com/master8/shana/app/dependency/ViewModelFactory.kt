@@ -30,9 +30,11 @@ class ViewModelFactory(
     private val linkMovieViewModel: LinkMovieViewModel
         get() = LinkMovieViewModel(
             searchModule.searchByMovieUseCase,
-            moviesModule.updateMovieUseCase
+            moviesModule.updateMovieUseCase,
+            moviesModule.getChangedMovieUseCase
         )
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
         when {
             isAssignableFrom(SearchViewModel::class.java) -> { searchViewModel }
