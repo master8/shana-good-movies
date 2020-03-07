@@ -79,6 +79,14 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
         })
     }
 
+    override fun removeGoodMovie(movie: FirebaseMovieDto) {
+        goodMovies.child(movie.internalId).removeValue()
+    }
+
+    override fun removeNeedToWatchMovie(movie: FirebaseMovieDto) {
+        needToWatchMovies.child(movie.internalId).removeValue()
+    }
+
     private companion object {
         const val PATH_GOOD_MOVIES = "goodMovies"
         const val PATH_NEED_TO_WATCH_MOVIES = "needToWatchMovies"

@@ -16,4 +16,7 @@ interface FirebaseRealtimeDatabase {
 
     suspend fun getAllMovies(): List<FirebaseMovieDto>
     suspend fun getAllSeries(): List<FirebaseSeriesDto>
+
+    fun removeGoodMovie(movie: FirebaseMovieDto)
+    fun removeNeedToWatchMovie(movie: FirebaseMovieDto)
 }

@@ -14,5 +14,8 @@ interface MoviesRepository {
     suspend fun updateGoodMovie(updatedMovie: Movie)
     suspend fun updateNeedToWatchMovie(updatedMovie: Movie)
 
+    suspend fun deleteGoodMovie(movie: Movie)
+    suspend fun deleteNeedToWatchMovie(movie: Movie)
+
     suspend fun searchMovies(query: String): List<Movie>
 }

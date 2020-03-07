@@ -52,6 +52,14 @@ class MoviesRepositoryImpl(
         movieDto.relatedSeries?.let { firebaseRealtimeDatabase.putSeries(it) }
     }
 
+    override suspend fun deleteGoodMovie(movie: Movie) {
+        firebaseRealtimeDatabase.removeGoodMovie(buildFirebaseMovieDto(movie))
+    }
+
+    override suspend fun deleteNeedToWatchMovie(movie: Movie) {
+        firebaseRealtimeDatabase.removeNeedToWatchMovie(buildFirebaseMovieDto(movie))
+    }
+
     override suspend fun searchMovies(query: String): List<Movie> {
         val medias = withContext(Dispatchers.IO) { tmdbApiService.multipleSearch(query).results }
         val movies = mutableListOf<Movie>()
