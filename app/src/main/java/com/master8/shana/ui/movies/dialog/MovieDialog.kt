@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.databinding.DialogMovieBinding
+import com.master8.shana.ui.EventObserver
 
 class MovieDialog : BottomSheetDialogFragment() {
 
-    private val viewModel by activityViewModels<MovieDialogViewModel>()
+    private val viewModel by activityViewModels<MovieDialogViewModel>() { ViewModelFactory(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +27,10 @@ class MovieDialog : BottomSheetDialogFragment() {
         viewModel.selectedMovie.observe(viewLifecycleOwner) {
             binding.movie = it
         }
+
+        viewModel.closeDialog.observe(viewLifecycleOwner, EventObserver {
+            dismiss()
+        })
 
         return binding.root
     }

@@ -33,7 +33,7 @@ abstract class AddedMoviesFragment : Fragment() {
 
     private val viewModel by viewModels<MovieViewModel> { viewModelFactory }
     private val linkMovieViewModel by activityViewModels<LinkMovieViewModel> { viewModelFactory }
-    private val movieDialogViewModel by activityViewModels<MovieDialogViewModel>()
+    private val movieDialogViewModel by activityViewModels<MovieDialogViewModel>() { viewModelFactory}
 
     private val adapter by lazy { createMoviesAdapter() }
 

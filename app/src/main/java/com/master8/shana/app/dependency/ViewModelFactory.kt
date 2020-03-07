@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.master8.shana.app.app
 import com.master8.shana.ui.linkmovie.LinkMovieViewModel
 import com.master8.shana.ui.movies.MovieViewModel
+import com.master8.shana.ui.movies.dialog.MovieDialogViewModel
 import com.master8.shana.ui.search.SearchViewModel
 
 class ViewModelFactory(
@@ -34,12 +35,18 @@ class ViewModelFactory(
             moviesModule.getChangedMovieUseCase
         )
 
+    private val movieDialogViewModel: MovieDialogViewModel
+        get() = MovieDialogViewModel(
+            moviesModule.deleteMovieUseCase
+        )
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
         when {
             isAssignableFrom(SearchViewModel::class.java) -> { searchViewModel }
             isAssignableFrom(MovieViewModel::class.java) -> { movieViewModel }
             isAssignableFrom(LinkMovieViewModel::class.java) -> { linkMovieViewModel }
+            isAssignableFrom(MovieDialogViewModel::class.java) -> { movieDialogViewModel }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     } as T
