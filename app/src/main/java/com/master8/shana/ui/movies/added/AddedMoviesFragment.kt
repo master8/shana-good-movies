@@ -24,6 +24,8 @@ import com.master8.shana.ui.EventObserver
 import com.master8.shana.ui.linkmovie.LinkMovieViewModel
 import com.master8.shana.ui.movies.MovieViewModel
 import com.master8.shana.ui.movies.MoviesFirebaseAdapter
+import com.master8.shana.ui.movies.dialog.MovieDialog
+import com.master8.shana.ui.movies.dialog.MovieDialogViewModel
 
 abstract class AddedMoviesFragment : Fragment() {
 
@@ -31,6 +33,7 @@ abstract class AddedMoviesFragment : Fragment() {
 
     private val viewModel by viewModels<MovieViewModel> { viewModelFactory }
     private val linkMovieViewModel by activityViewModels<LinkMovieViewModel> { viewModelFactory }
+    private val movieDialogViewModel by activityViewModels<MovieDialogViewModel>()
 
     private val adapter by lazy { createMoviesAdapter() }
 
@@ -57,6 +60,11 @@ abstract class AddedMoviesFragment : Fragment() {
         viewModel.onLinkMovie.observe(viewLifecycleOwner, EventObserver {
             linkMovieViewModel.searchByMovie(it)
             findNavController().navigate(R.id.linkMovieFragment)
+        })
+
+        viewModel.openMovieDialog.observe(viewLifecycleOwner, EventObserver {
+            movieDialogViewModel.selectMovie(it)
+            MovieDialog().show(childFragmentManager, null)
         })
 
         return binding.root

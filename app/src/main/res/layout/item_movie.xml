@@ -13,6 +13,10 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:onClick="@{() -> viewModel.openMovieDialog(movie)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

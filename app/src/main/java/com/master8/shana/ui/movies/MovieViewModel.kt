@@ -19,6 +19,9 @@ class MovieViewModel(
     private val _onLinkMovie = MutableLiveData<Event<Movie>>()
     val onLinkMovie: LiveData<Event<Movie>> = _onLinkMovie
 
+    private val _openMovieDialog = MutableLiveData<Event<Movie>>()
+    val openMovieDialog: LiveData<Event<Movie>> = _openMovieDialog
+
     fun addGoodMovie(movie: Movie) = viewModelScope.launch {
         addGoodMovieUseCase(movie)
     }
@@ -29,5 +32,9 @@ class MovieViewModel(
 
     fun linkMovie(movie: Movie) = viewModelScope.launch {
         _onLinkMovie.value = Event(movie)
+    }
+
+    fun openMovieDialog(movie: Movie) {
+        _openMovieDialog.value = Event(movie)
     }
 }
