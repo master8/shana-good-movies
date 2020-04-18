@@ -7,14 +7,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master8.shana.domain.entity.Movie
+import com.master8.shana.domain.usecase.ChangeMoviePosterUseCase
 import com.master8.shana.domain.usecase.DeleteMovieUseCase
 import com.master8.shana.domain.usecase.MoveToGoodMoviesUseCase
+import com.master8.shana.domain.usecase.SearchPostersByMovieUseCase
 import com.master8.shana.ui.Event
 import kotlinx.coroutines.launch
 
 class MovieDialogViewModel(
     private val deleteMovieUseCase: DeleteMovieUseCase,
-    private val moveToGoodMoviesUseCase: MoveToGoodMoviesUseCase
+    private val moveToGoodMoviesUseCase: MoveToGoodMoviesUseCase,
+    private val changeMoviePosterUseCase: ChangeMoviePosterUseCase,
+    private val searchPostersByMovieUseCase: SearchPostersByMovieUseCase
 ) : ViewModel() {
 
     private val _selectedMove = MutableLiveData<Movie>()
@@ -40,17 +44,15 @@ class MovieDialogViewModel(
         _closeDialog.value = Event(true)
     }
 
-    fun searchPosters() {
+    fun searchPosters() = viewModelScope.launch {
         selectedMovie.value?.let {
-            it.poster?.let {
-                _posters.value = listOf(
-                    it, it, it, it
-                )
-            }
+            _posters.value = searchPostersByMovieUseCase(it)
         }
     }
 
-    fun changeMoviePoster(poster: Uri) {
-        _selectedMove.value = _selectedMove.value
+    fun changeMoviePoster(poster: Uri) = viewModelScope.launch {
+        _selectedMove.value?.let {
+            _selectedMove.value = changeMoviePosterUseCase(it, poster)
+        }
     }
 }
