@@ -1,5 +1,7 @@
 package com.master8.shana.ui.movies.dialog
 
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +20,9 @@ class MovieDialogViewModel(
     private val _selectedMove = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> = _selectedMove
 
+    private val _posters = MutableLiveData<List<Uri>>()
+    val posters: LiveData<List<Uri>> = _posters
+
     private val _closeDialog = MutableLiveData<Event<Boolean>>()
     val closeDialog: LiveData<Event<Boolean>> = _closeDialog
 
@@ -33,5 +38,19 @@ class MovieDialogViewModel(
     fun moveToGoodMovies(movie: Movie) = viewModelScope.launch {
         moveToGoodMoviesUseCase(movie)
         _closeDialog.value = Event(true)
+    }
+
+    fun searchPosters() {
+        selectedMovie.value?.let {
+            it.poster?.let {
+                _posters.value = listOf(
+                    it, it, it, it
+                )
+            }
+        }
+    }
+
+    fun changeMoviePoster(poster: Uri) {
+        _selectedMove.value = _selectedMove.value
     }
 }

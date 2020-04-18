@@ -31,37 +31,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_selected_poster"
-            android:layout_width="wrap_content"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager_posters"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_marker">
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="300dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@{movie.poster}" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_save_poster"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="save"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_selected_poster" />
+            app:layout_constraintTop_toBottomOf="@id/header_marker"/>
 
         <View
             android:id="@+id/line_left"
@@ -90,7 +67,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/line_right"
             app:layout_constraintStart_toEndOf="@id/line_left"
-            app:layout_constraintTop_toBottomOf="@id/button_save_poster" />
+            app:layout_constraintTop_toBottomOf="@id/pager_posters" />
 
         <View
             android:id="@+id/line_right"
@@ -215,7 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="card_selected_poster,button_save_poster,text_select_poster,line_left,line_right"/>
+            app:constraint_referenced_ids="pager_posters,text_select_poster,line_left,line_right"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
