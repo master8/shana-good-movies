@@ -32,7 +32,6 @@ interface TMDbApiService {
     @GET("tv/{tv_id}/images")
     suspend fun getTvPosters(
         @Path("tv_id")  tvId: Int,
-        @Query("include_image_language") languages: String = "jp,ru,en",
         @Query("api_key") apiKey: String = TMDbApiKey.API_KEY
     ): PostersDto
 
@@ -40,7 +39,6 @@ interface TMDbApiService {
     suspend fun getSeasonPosters(
         @Path("tv_id")  tvId: Int,
         @Path("season_number") seasonNumber: Int,
-        @Query("include_image_language") languages: String = "jp,ru,en",
         @Query("api_key") apiKey: String = TMDbApiKey.API_KEY
     ): PostersDto
 }

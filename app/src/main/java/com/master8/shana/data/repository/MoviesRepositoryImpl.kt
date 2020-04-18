@@ -1,7 +1,6 @@
 package com.master8.shana.data.repository
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.master8.shana.data.repository.converters.buildFirebaseMovieDto
 import com.master8.shana.data.repository.converters.toMovie
