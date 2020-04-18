@@ -107,13 +107,42 @@ class MoviesRepositoryImpl(
         return seasons.map { it.toMovie(series) }
     }
 
-    override suspend fun searchPosters(movie: Movie): List<Uri> {
-        Log.e("mv8", "movie ${movie.externalId}")
-        return movie.externalId?.let {
-            withContext(Dispatchers.IO) {
-                tmdbApiService.getPosters(it).posters
-                    .mapNotNull { dto -> createTMDbAbsoluteImageUri(dto.relatedUri) }
+    override suspend fun searchPosters(movie: Movie): List<Uri> = withContext(Dispatchers.IO) {
+
+        if (movie.externalId == null) {
+            return@withContext emptyList<Uri>()
+        }
+
+        val posters: List<Uri>
+
+        if (movie.relatedSeries != null) {
+
+            val allPosters = mutableListOf<Uri>()
+
+            movie.relatedSeries.externalId?.let {  tvId ->
+
+                allPosters.addAll(
+                    movie.seasonNumber?.let {
+                        tmdbApiService.getSeasonPosters(tvId, movie.seasonNumber)
+                            .posters
+                            .mapNotNull { dto -> createTMDbAbsoluteImageUri(dto.relatedUri) }
+                    } ?: emptyList()
+                )
+
+                allPosters.addAll(
+                    tmdbApiService.getTvPosters(tvId)
+                        .posters
+                        .mapNotNull { dto -> createTMDbAbsoluteImageUri(dto.relatedUri) }
+                )
             }
-        } ?: emptyList()
+
+            posters = allPosters.distinct()
+
+        } else {
+            posters = tmdbApiService.getPosters(movie.externalId)
+                .posters
+                .mapNotNull { dto -> createTMDbAbsoluteImageUri(dto.relatedUri) }
+        }
+        return@withContext posters
     }
 }
