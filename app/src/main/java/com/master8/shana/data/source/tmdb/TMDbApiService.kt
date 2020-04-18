@@ -1,5 +1,6 @@
 package com.master8.shana.data.source.tmdb
 
+import com.master8.shana.data.source.tmdb.dto.PostersDto
 import com.master8.shana.data.source.tmdb.dto.SearchResultDto
 import com.master8.shana.data.source.tmdb.dto.TvDetailsResultDto
 import retrofit2.http.GET
@@ -20,4 +21,11 @@ interface TMDbApiService {
         @Path("id") tvId: Int,
         @Query("api_key") apiKey: String = TMDbApiKey.API_KEY
     ): TvDetailsResultDto
+
+    @GET("movie/{id}/images")
+    suspend fun getPosters(
+        @Path("id")  movieId: Int,
+        @Query("include_image_language") languages: String = "jp,ru,en",
+        @Query("api_key") apiKey: String = TMDbApiKey.API_KEY
+    ): PostersDto
 }

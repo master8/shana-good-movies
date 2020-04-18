@@ -1,5 +1,7 @@
 package com.master8.shana.data.repository
 
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.master8.shana.data.repository.converters.buildFirebaseMovieDto
 import com.master8.shana.data.repository.converters.toMovie
@@ -7,6 +9,7 @@ import com.master8.shana.data.repository.converters.toSeries
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
 import com.master8.shana.data.source.tmdb.TMDbApiService
+import com.master8.shana.data.source.tmdb.createTMDbAbsoluteImageUri
 import com.master8.shana.data.source.tmdb.dto.MediaDto
 import com.master8.shana.data.source.tmdb.mediaTypeIsMovie
 import com.master8.shana.data.source.tmdb.mediaTypeIsTV
@@ -102,5 +105,15 @@ class MoviesRepositoryImpl(
         val series = mediaTv.toSeries()
         val seasons = withContext(Dispatchers.IO) { tmdbApiService.getTvDetails(mediaTv.id!!).seasons }
         return seasons.map { it.toMovie(series) }
+    }
+
+    override suspend fun searchPosters(movie: Movie): List<Uri> {
+        Log.e("mv8", "movie ${movie.externalId}")
+        return movie.externalId?.let {
+            withContext(Dispatchers.IO) {
+                tmdbApiService.getPosters(it).posters
+                    .mapNotNull { dto -> createTMDbAbsoluteImageUri(dto.relatedUri) }
+            }
+        } ?: emptyList()
     }
 }

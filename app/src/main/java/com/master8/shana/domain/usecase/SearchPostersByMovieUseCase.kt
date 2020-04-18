@@ -8,8 +8,6 @@ class SearchPostersByMovieUseCase(
     private val repository: MoviesRepository
 ) {
     suspend operator fun invoke(movie: Movie): List<Uri> {
-        return movie.poster?.let {
-            listOf(it, it, it, it)
-        } ?: listOf()
+        return repository.searchPosters(movie)
     }
 }

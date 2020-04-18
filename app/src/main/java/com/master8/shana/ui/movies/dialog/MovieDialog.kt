@@ -15,6 +15,7 @@ import com.master8.shana.databinding.DialogMovieBinding
 import com.master8.shana.ui.EventObserver
 import com.master8.shana.ui.ext.hide
 import com.master8.shana.ui.ext.inverseVisibility
+import com.master8.shana.ui.ext.show
 
 class MovieDialog : BottomSheetDialogFragment() {
 
@@ -33,28 +34,23 @@ class MovieDialog : BottomSheetDialogFragment() {
 
         viewModel.selectedMovie.observe(viewLifecycleOwner) {
             binding.movie = it
-
+            binding.headerMarker.hide()
             TransitionManager.beginDelayedTransition(requireView().parent as ViewGroup)
             binding.groupChangePoster.hide()
-            binding.headerMarker.hide()
         }
 
-        viewModel.posters.observe(viewLifecycleOwner) {
+        viewModel.posters.observe(viewLifecycleOwner, EventObserver {
             postersAdapter.submitList(it)
-        }
+            binding.headerMarker.show()
+            TransitionManager.beginDelayedTransition(requireView().parent as ViewGroup)
+            binding.groupChangePoster.show()
+        })
 
         viewModel.closeDialog.observe(viewLifecycleOwner, EventObserver {
             dismiss()
         })
 
         binding.pagerPosters.adapter = postersAdapter
-
-        binding.image.setOnClickListener {
-            binding.headerMarker.inverseVisibility()
-            TransitionManager.beginDelayedTransition(requireView().parent as ViewGroup)
-            binding.groupChangePoster.inverseVisibility()
-            viewModel.searchPosters()
-        }
 
         return binding.root
     }

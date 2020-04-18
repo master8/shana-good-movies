@@ -24,14 +24,15 @@ class MovieDialogViewModel(
     private val _selectedMove = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> = _selectedMove
 
-    private val _posters = MutableLiveData<List<Uri>>()
-    val posters: LiveData<List<Uri>> = _posters
+    private val _posters = MutableLiveData<Event<List<Uri>>>()
+    val posters: LiveData<Event<List<Uri>>> = _posters
 
     private val _closeDialog = MutableLiveData<Event<Boolean>>()
     val closeDialog: LiveData<Event<Boolean>> = _closeDialog
 
     fun selectMovie(movie: Movie) {
         _selectedMove.value = movie
+        _posters.value = null
     }
 
     fun deleteMovie(movie: Movie) = viewModelScope.launch {
@@ -46,7 +47,7 @@ class MovieDialogViewModel(
 
     fun searchPosters() = viewModelScope.launch {
         selectedMovie.value?.let {
-            _posters.value = searchPostersByMovieUseCase(it)
+            _posters.value = Event(searchPostersByMovieUseCase(it))
         }
     }
 
