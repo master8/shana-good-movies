@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.databinding.DialogMovieBinding
@@ -33,5 +34,12 @@ class MovieDialog : BottomSheetDialogFragment() {
         })
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val bottomSheetBehavior = BottomSheetBehavior.from(requireView().parent as View)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 }
