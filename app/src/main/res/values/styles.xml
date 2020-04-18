@@ -1,6 +1,27 @@
 <resources>
     <style name="Widget.Shana.BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
     </style>
+
+    <style name="Widget.Shana.Button.Icon" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+
+        <item name="android:padding">6dp</item>
+
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetTop">0dp</item>
+
+        <item name="iconSize">20dp</item>
+        <item name="iconTint">?attr/colorOnSurface</item>
+        <item name="iconPadding">0dp</item>
+
+        <item name="cornerRadius">18dp</item>
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="android:alpha">0.5</item>
+    </style>
+
     <style name="Widget.Shana.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingLeft">16dp</item>
