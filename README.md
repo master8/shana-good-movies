@@ -1,4 +1,4 @@
-<img src="/screenshots/logo.png?raw=true" width="500">
+<img src="/screenshots/logo.png?raw=true" width="400">
 
 ## About
 An Android app for keeping good watched movies and what to need to watch
