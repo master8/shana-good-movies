@@ -19,7 +19,5 @@ An Android app for keeping good watched movies and what to need to watch
 
 
 ## License
-
-Copyright (c) 2020 Michael Vinel
-
+Copyright (c) 2020 Michael Vinel  
 Licensed under the MIT license.
