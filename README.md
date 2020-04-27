@@ -6,7 +6,19 @@ An Android app for keeping good watched movies and what to need to watch
 `TODO write description`
 
 ## Tech
-`TODO write description`
+- Kotlin
+- Coroutines
+- Android Architecture Components
+- Data Binding
+- Navigation component
+- Retrofit
+- Firebase Realtime Database
+- Firebase UI
+- Glide
+
+#### In future
+- Paging Library
+- Room
 
 ## Architecture
 
