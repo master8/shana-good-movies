@@ -122,7 +122,7 @@ class SearchRepositoryImpl(
             ruSeason.name,
             enSeason.name,
             "${ruTv.name} ${ruSeason.name}",
-            "${enTv.name} ${ruSeason.name}"
+            "${enTv.name} ${enSeason.name}"
         ).distinct()
             .filterNot { it.isBlank() && it.length > 3 }
 
