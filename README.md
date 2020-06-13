@@ -21,8 +21,7 @@ An Android app for keeping good watched movies and what to need to watch
 - Room
 
 ## Architecture
-
-`TODO write description`
+<img src="/screenshots/architecture.png?raw=true">
 
 ## Features
 `TODO write description`
