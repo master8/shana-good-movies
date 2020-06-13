@@ -5,7 +5,6 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -15,7 +14,6 @@ import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.databinding.DialogMovieBinding
 import com.master8.shana.ui.EventObserver
 import com.master8.shana.ui.ext.hide
-import com.master8.shana.ui.ext.inverseVisibility
 import com.master8.shana.ui.ext.show
 
 class MovieDialog : BottomSheetDialogFragment() {
