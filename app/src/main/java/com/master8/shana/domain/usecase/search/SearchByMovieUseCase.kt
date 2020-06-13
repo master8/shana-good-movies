@@ -1,4 +1,4 @@
-package com.master8.shana.domain.usecase
+package com.master8.shana.domain.usecase.search
 
 import com.master8.shana.domain.entity.Movie
 

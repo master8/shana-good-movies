@@ -3,8 +3,8 @@ package com.master8.shana.ui.search
 import androidx.lifecycle.*
 import com.master8.shana.domain.entity.ChangedMovie
 import com.master8.shana.domain.entity.Movie
-import com.master8.shana.domain.usecase.GetChangedMovieUseCase
-import com.master8.shana.domain.usecase.SearchMoviesUseCase
+import com.master8.shana.domain.usecase.movies.GetChangedMovieUseCase
+import com.master8.shana.domain.usecase.search.SearchMoviesUseCase
 import com.master8.shana.ui.ChangesMovieViewModel
 import com.master8.shana.ui.ext.changeItem
 import kotlinx.coroutines.launch

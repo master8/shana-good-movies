@@ -2,14 +2,12 @@ package com.master8.shana.ui.linkmovie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master8.shana.domain.entity.ChangedMovie
 import com.master8.shana.domain.entity.Movie
-import com.master8.shana.domain.usecase.GetChangedMovieUseCase
-import com.master8.shana.domain.usecase.SearchByMovieUseCase
-import com.master8.shana.domain.usecase.LinkMovieUseCase
+import com.master8.shana.domain.usecase.movies.GetChangedMovieUseCase
+import com.master8.shana.domain.usecase.search.SearchByMovieUseCase
+import com.master8.shana.domain.usecase.movies.LinkMovieUseCase
 import com.master8.shana.ui.ChangesMovieViewModel
 import com.master8.shana.ui.ext.changeItem
 import kotlinx.coroutines.launch

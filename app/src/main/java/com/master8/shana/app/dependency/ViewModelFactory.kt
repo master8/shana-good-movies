@@ -40,7 +40,7 @@ class ViewModelFactory(
             moviesModule.deleteMovieUseCase,
             moviesModule.moveToWatchMovieUseCase,
             moviesModule.changeMoviePosterUseCase,
-            moviesModule.searchPostersByMovieUseCase
+            searchModule.searchPostersByMovieUseCase
         )
 
     @Suppress("UNCHECKED_CAST")

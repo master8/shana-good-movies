@@ -1,12 +1,14 @@
-package com.master8.shana.domain.usecase
+package com.master8.shana.domain.usecase.movies
 
 import com.master8.shana.domain.entity.ChangedMovie
 import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.entity.WatchStatus
+import com.master8.shana.domain.repository.MovieChangesRepository
 import com.master8.shana.domain.repository.MoviesRepository
 
 class MoveToGoodMoviesUseCase(
-    private val moviesRepository: MoviesRepository
+    private val moviesRepository: MoviesRepository,
+    private val movieChangesRepository: MovieChangesRepository
 ) {
 
     suspend operator fun invoke(movie: Movie) {
@@ -16,7 +18,7 @@ class MoveToGoodMoviesUseCase(
             dateAdded = generateDateAdded()
         )
         moviesRepository.addGoodMovie(updatedMovie)
-        moviesRepository.movieWasChanged(ChangedMovie(movie, updatedMovie))
+        movieChangesRepository.movieWasChanged(ChangedMovie(movie, updatedMovie))
     }
 
     private fun generateDateAdded(): Long = System.currentTimeMillis()

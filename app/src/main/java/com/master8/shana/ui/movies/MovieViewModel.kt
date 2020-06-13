@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master8.shana.domain.entity.Movie
-import com.master8.shana.domain.usecase.AddGoodMovieUseCase
-import com.master8.shana.domain.usecase.AddNeedToWatchMovieUseCase
-import com.master8.shana.domain.usecase.SearchByMovieUseCase
+import com.master8.shana.domain.usecase.movies.AddGoodMovieUseCase
+import com.master8.shana.domain.usecase.movies.AddNeedToWatchMovieUseCase
 import com.master8.shana.ui.Event
 import kotlinx.coroutines.launch
 

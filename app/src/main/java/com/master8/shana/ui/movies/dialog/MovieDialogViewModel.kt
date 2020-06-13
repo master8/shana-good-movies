@@ -1,16 +1,15 @@
 package com.master8.shana.ui.movies.dialog
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master8.shana.domain.entity.Movie
-import com.master8.shana.domain.usecase.ChangeMoviePosterUseCase
-import com.master8.shana.domain.usecase.DeleteMovieUseCase
-import com.master8.shana.domain.usecase.MoveToGoodMoviesUseCase
-import com.master8.shana.domain.usecase.SearchPostersByMovieUseCase
+import com.master8.shana.domain.usecase.movies.ChangeMoviePosterUseCase
+import com.master8.shana.domain.usecase.movies.DeleteMovieUseCase
+import com.master8.shana.domain.usecase.movies.MoveToGoodMoviesUseCase
+import com.master8.shana.domain.usecase.search.SearchPostersByMovieUseCase
 import com.master8.shana.ui.Event
 import kotlinx.coroutines.launch
 

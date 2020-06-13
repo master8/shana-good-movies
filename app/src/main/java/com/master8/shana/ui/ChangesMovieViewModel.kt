@@ -3,7 +3,7 @@ package com.master8.shana.ui
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.master8.shana.domain.entity.ChangedMovie
-import com.master8.shana.domain.usecase.GetChangedMovieUseCase
+import com.master8.shana.domain.usecase.movies.GetChangedMovieUseCase
 
 abstract class ChangesMovieViewModel(
     getChangedMovieUseCase: GetChangedMovieUseCase
