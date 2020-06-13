@@ -6,9 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.master8.shana.domain.entity.Movie
+import com.master8.shana.domain.usecase.movies.ChangeMovieNameUseCase
 import com.master8.shana.domain.usecase.movies.ChangeMoviePosterUseCase
 import com.master8.shana.domain.usecase.movies.DeleteMovieUseCase
 import com.master8.shana.domain.usecase.movies.MoveToGoodMoviesUseCase
+import com.master8.shana.domain.usecase.search.SearchNamesForMovieUseCase
 import com.master8.shana.domain.usecase.search.SearchPostersByMovieUseCase
 import com.master8.shana.ui.Event
 import kotlinx.coroutines.launch
@@ -17,7 +19,9 @@ class MovieDialogViewModel(
     private val deleteMovieUseCase: DeleteMovieUseCase,
     private val moveToGoodMoviesUseCase: MoveToGoodMoviesUseCase,
     private val changeMoviePosterUseCase: ChangeMoviePosterUseCase,
-    private val searchPostersByMovieUseCase: SearchPostersByMovieUseCase
+    private val searchPostersByMovieUseCase: SearchPostersByMovieUseCase,
+    private val searchNamesForMovieUseCase: SearchNamesForMovieUseCase,
+    private val changeMovieNameUseCase: ChangeMovieNameUseCase
 ) : ViewModel() {
 
     private val _selectedMove = MutableLiveData<Movie>()
@@ -59,13 +63,13 @@ class MovieDialogViewModel(
         }
     }
 
-    fun searchNames(movie: Movie) {
-        _names.value = Event(listOf(
-            "hello", "hello world", "hi, I am Michael", "Nice!", "Good day! How you?"
-        ))
+    fun searchNames(movie: Movie) = viewModelScope.launch {
+        _names.value = Event(searchNamesForMovieUseCase(movie))
     }
 
-    fun changeName(name: String) {
-        _selectedMove.value = _selectedMove.value?.copy(name = name)
+    fun changeName(name: String) = viewModelScope.launch {
+        _selectedMove.value?.let {
+            _selectedMove.value = changeMovieNameUseCase(it, name)
+        }
     }
 }

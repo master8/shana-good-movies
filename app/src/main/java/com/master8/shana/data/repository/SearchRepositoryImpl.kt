@@ -101,4 +101,30 @@ class SearchRepositoryImpl(
         }
         return@withContext posters
     }
+
+    override suspend fun searchNames(movie: Movie): List<String> {
+
+        if (movie.relatedSeries?.externalId == null || movie.seasonNumber == null) {
+            return emptyList()
+        }
+
+        val enTv = tmdbApiService.getTvDetails(movie.relatedSeries.externalId)
+        val ruTv = tmdbApiService.getTvDetails(movie.relatedSeries.externalId, "ru")
+
+        val enSeason = enTv.seasons.find { it.seasonNumber == movie.seasonNumber }!!
+        val ruSeason = ruTv.seasons.find { it.seasonNumber == movie.seasonNumber }!!
+
+        return listOf(
+            enTv.name,
+            ruTv.name,
+            "${ruTv.name} ${ruSeason.seasonNumber}",
+            "${enTv.name} ${enSeason.seasonNumber}",
+            ruSeason.name,
+            enSeason.name,
+            "${ruTv.name} ${ruSeason.name}",
+            "${enTv.name} ${ruSeason.name}"
+        ).distinct()
+            .filterNot { it.isBlank() && it.length > 3 }
+
+    }
 }

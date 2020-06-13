@@ -4,6 +4,7 @@ import com.master8.shana.data.repository.SearchRepositoryImpl
 import com.master8.shana.data.source.tmdb.createTMDbApiService
 import com.master8.shana.domain.usecase.search.SearchByMovieUseCase
 import com.master8.shana.domain.usecase.search.SearchMoviesUseCase
+import com.master8.shana.domain.usecase.search.SearchNamesForMovieUseCase
 import com.master8.shana.domain.usecase.search.SearchPostersByMovieUseCase
 
 class SearchModule(
@@ -22,6 +23,12 @@ class SearchModule(
 
     val searchPostersByMovieUseCase by lazy {
         SearchPostersByMovieUseCase(
+            searchRepository
+        )
+    }
+
+    val searchNamesForMovieUseCase by lazy {
+        SearchNamesForMovieUseCase(
             searchRepository
         )
     }

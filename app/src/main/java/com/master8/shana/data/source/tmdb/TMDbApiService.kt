@@ -19,6 +19,7 @@ interface TMDbApiService {
     @GET("tv/{id}")
     suspend fun getTvDetails(
         @Path("id") tvId: Int,
+        @Query("language") language: String = "en",
         @Query("api_key") apiKey: String = TMDbApiKey.API_KEY
     ): TvDetailsResultDto
 

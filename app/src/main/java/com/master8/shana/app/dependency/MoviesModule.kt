@@ -45,6 +45,12 @@ class MoviesModule {
         )
     }
 
+    val changeMovieNameUseCase by lazy {
+        ChangeMovieNameUseCase(
+            moviesRepository
+        )
+    }
+
     private val prepareMovieToAddUseCase by lazy {
         PrepareMovieToAddUseCase(
             prepareSeriesToAddUseCase

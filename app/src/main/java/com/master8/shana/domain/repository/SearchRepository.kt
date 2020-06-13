@@ -7,4 +7,5 @@ interface SearchRepository {
 
     suspend fun searchMovies(query: String): List<Movie>
     suspend fun searchPosters(movie: Movie): List<Uri>
+    suspend fun searchNames(movie: Movie): List<String>
 }
