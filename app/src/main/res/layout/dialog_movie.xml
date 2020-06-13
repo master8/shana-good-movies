@@ -23,22 +23,43 @@
             android:layout_width="50dp"
             android:layout_height="4dp"
             android:layout_marginTop="8dp"
-            android:visibility="gone"
             android:alpha="0.6"
             android:background="@drawable/background_header_marker"
             android:backgroundTint="?attr/colorControlNormal"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipsNames"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_marker"
+            app:singleSelection="true"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager_posters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_marker"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_marker" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="pager_posters,chipsNames"/>
 
         <View
             android:id="@+id/line_left"
@@ -47,14 +68,14 @@
             android:layout_marginStart="16dp"
             android:alpha="0.2"
             android:background="?colorOnSurface"
-            app:layout_constraintBottom_toBottomOf="@id/text_select_poster"
-            app:layout_constraintEnd_toStartOf="@id/text_select_poster"
+            app:layout_constraintBottom_toBottomOf="@id/text_separator"
+            app:layout_constraintEnd_toStartOf="@id/text_separator"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_select_poster" />
+            app:layout_constraintTop_toTopOf="@id/text_separator" />
 
         <TextView
-            android:id="@+id/text_select_poster"
+            android:id="@+id/text_separator"
             android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:layout_marginStart="16dp"
@@ -67,7 +88,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/line_right"
             app:layout_constraintStart_toEndOf="@id/line_left"
-            app:layout_constraintTop_toBottomOf="@id/pager_posters" />
+            app:layout_constraintTop_toBottomOf="@id/barrier" />
 
         <View
             android:id="@+id/line_right"
@@ -76,10 +97,10 @@
             android:layout_marginEnd="16dp"
             android:alpha="0.2"
             android:background="?colorOnSurface"
-            app:layout_constraintBottom_toBottomOf="@id/text_select_poster"
+            app:layout_constraintBottom_toBottomOf="@id/text_separator"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/text_select_poster"
-            app:layout_constraintTop_toTopOf="@id/text_select_poster" />
+            app:layout_constraintStart_toEndOf="@id/text_separator"
+            app:layout_constraintTop_toTopOf="@id/text_separator" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_poster"
@@ -88,15 +109,15 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:insetLeft="16dp"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="4dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?selectableItemBackground"
-            android:onClick="@{() -> viewModel.searchPosters()}}"
+            android:insetLeft="16dp"
+            android:onClick="@{() -> viewModel.searchPosters()}"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_select_poster">
+            app:layout_constraintTop_toBottomOf="@id/text_separator">
 
             <ImageView
                 android:id="@+id/image"
@@ -175,6 +196,19 @@
             app:layout_constraintTop_toBottomOf="@id/card_poster" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_change_name"
+            style="@style/Widget.Shana.Button.TextButton"
+            android:layout_width="0dp"
+            app:layout_goneMarginTop="16dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.searchNames(movie)}"
+            android:text="change name"
+            app:icon="@drawable/ic_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_move_to_good_movie" />
+
+        <com.google.android.material.button.MaterialButton
             style="@style/Widget.Shana.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -187,16 +221,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_move_to_good_movie"
+            app:layout_constraintTop_toBottomOf="@id/button_change_name"
             app:layout_goneMarginTop="16dp"
             app:rippleColor="@color/mtrl_btn_text_btn_ripple_color" />
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/group_change_poster"
+            android:id="@+id/group_line_separator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="pager_posters,text_select_poster,line_left,line_right"/>
+            app:constraint_referenced_ids="text_separator,line_left,line_right" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

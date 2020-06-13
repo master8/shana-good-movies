@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
 import com.master8.shana.app.dependency.ViewModelFactory
 import com.master8.shana.databinding.DialogMovieBinding
 import com.master8.shana.ui.EventObserver
@@ -33,17 +34,40 @@ class MovieDialog : BottomSheetDialogFragment() {
         val postersAdapter = PostersAdapter(viewModel, viewLifecycleOwner)
 
         viewModel.selectedMovie.observe(viewLifecycleOwner) {
-            binding.movie = it
             binding.headerMarker.hide()
             TransitionManager.beginDelayedTransition(requireView().parent as ViewGroup)
-            binding.groupChangePoster.hide()
+            binding.pagerPosters.hide()
+            binding.chipsNames.hide()
+            binding.groupLineSeparator.hide()
+            binding.movie = it
         }
 
         viewModel.posters.observe(viewLifecycleOwner, EventObserver {
             postersAdapter.submitList(it)
             binding.headerMarker.show()
             TransitionManager.beginDelayedTransition(requireView().parent as ViewGroup)
-            binding.groupChangePoster.show()
+            binding.textSeparator.text = "select poster"
+            binding.groupLineSeparator.show()
+            binding.chipsNames.hide()
+            binding.pagerPosters.show()
+        })
+
+        viewModel.names.observe(viewLifecycleOwner, EventObserver { names ->
+
+            binding.chipsNames.run {
+                removeAllViews()
+                names.forEach { name ->
+                    addView(buildNameChip(name))
+                }
+            }
+
+
+            binding.headerMarker.show()
+            TransitionManager.beginDelayedTransition(requireView().parent as ViewGroup)
+            binding.textSeparator.text = "select name"
+            binding.groupLineSeparator.show()
+            binding.pagerPosters.hide()
+            binding.chipsNames.show()
         })
 
         viewModel.closeDialog.observe(viewLifecycleOwner, EventObserver {
@@ -54,6 +78,12 @@ class MovieDialog : BottomSheetDialogFragment() {
 
         return binding.root
     }
+
+    private fun buildNameChip(name: String) = Chip(requireContext())
+        .apply {
+            text = name
+            setOnClickListener { viewModel.changeName(text.toString()) }
+        }
 
     override fun onStart() {
         super.onStart()
