@@ -4,6 +4,7 @@ import com.master8.shana.data.repository.MovieChangesRepositoryImpl
 import com.master8.shana.data.repository.MoviesRepositoryImpl
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabaseImpl
+import com.master8.shana.data.source.firebase.database.FirebaseStorageDataSourceImpl
 import com.master8.shana.domain.usecase.movies.*
 
 class MoviesModule {
@@ -65,7 +66,11 @@ class MoviesModule {
         )
     }
 
-    private val moviesRepository by lazy { MoviesRepositoryImpl(firebaseRealtimeDatabase) }
+    private val moviesRepository by lazy {
+        MoviesRepositoryImpl(firebaseRealtimeDatabase, firebaseStorageDataSource)
+    }
+
     private val movieChangesRepository by lazy { MovieChangesRepositoryImpl() }
     val firebaseRealtimeDatabase: FirebaseRealtimeDatabase by lazy { FirebaseRealtimeDatabaseImpl() }
+    private val firebaseStorageDataSource by lazy { FirebaseStorageDataSourceImpl() }
 }
