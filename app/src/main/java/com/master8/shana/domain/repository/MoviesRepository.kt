@@ -12,4 +12,5 @@ interface MoviesRepository {
 
     suspend fun deleteGoodMovie(movie: Movie)
     suspend fun deleteNeedToWatchMovie(movie: Movie)
+    suspend fun deletePoster(movie: Movie)
 }

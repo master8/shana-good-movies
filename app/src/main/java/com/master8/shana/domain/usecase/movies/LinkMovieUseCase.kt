@@ -23,5 +23,7 @@ class LinkMovieUseCase(
         } else {
             moviesRepository.updateNeedToWatchMovie(updatedMovie)
         }
+
+        moviesRepository.deletePoster(oldMovie)
     }
 }

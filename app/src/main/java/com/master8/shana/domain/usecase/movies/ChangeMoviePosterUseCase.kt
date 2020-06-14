@@ -17,6 +17,8 @@ class ChangeMoviePosterUseCase(
             moviesRepository.updateNeedToWatchMovie(updatedMovie)
         }
 
+        moviesRepository.deletePoster(movie)
+
         return updatedMovie
     }
 }
