@@ -88,7 +88,8 @@ fun FirebaseSeriesDto.toSeries(): Series = Series(
 )
 
 private fun buildImage(image: String): Image? = if (image.contains("http")) {
-    UriImage(Uri.parse(image))
+//    UriImage(Uri.parse(image))
+    null
 } else {
     StorageReferenceImage(storageReference.child(image))
 }
