@@ -77,7 +77,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 
-    implementation 'com.google.firebase:firebase-database-ktx:19.2.0'
+    implementation 'com.google.firebase:firebase-database-ktx:19.3.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:19.3.1'
     implementation 'com.firebaseui:firebase-ui-database:6.2.0'
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
