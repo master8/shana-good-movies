@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="poster"
-            type="android.net.Uri" />
+            type="com.master8.shana.domain.entity.Image" />
         <variable
             name="viewModel"
             type="com.master8.shana.ui.movies.dialog.MovieDialogViewModel" />

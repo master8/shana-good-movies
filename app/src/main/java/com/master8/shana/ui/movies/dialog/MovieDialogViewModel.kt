@@ -1,10 +1,10 @@
 package com.master8.shana.ui.movies.dialog
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.master8.shana.domain.entity.Image
 import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.usecase.movies.ChangeMovieNameUseCase
 import com.master8.shana.domain.usecase.movies.ChangeMoviePosterUseCase
@@ -27,8 +27,8 @@ class MovieDialogViewModel(
     private val _selectedMove = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> = _selectedMove
 
-    private val _posters = MutableLiveData<Event<List<Uri>>>()
-    val posters: LiveData<Event<List<Uri>>> = _posters
+    private val _posters = MutableLiveData<Event<List<Image>>>()
+    val posters: LiveData<Event<List<Image>>> = _posters
 
     private val _names = MutableLiveData<Event<List<String>>>()
     val names: LiveData<Event<List<String>>> = _names
@@ -57,7 +57,7 @@ class MovieDialogViewModel(
         }
     }
 
-    fun changeMoviePoster(poster: Uri) = viewModelScope.launch {
+    fun changeMoviePoster(poster: Image) = viewModelScope.launch {
         _selectedMove.value?.let {
 //            _selectedMove.value = changeMoviePosterUseCase(it, poster)
             changeMoviePosterUseCase(it, poster)

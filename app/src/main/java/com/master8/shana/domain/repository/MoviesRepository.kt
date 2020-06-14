@@ -1,8 +1,5 @@
 package com.master8.shana.domain.repository
 
-import android.net.Uri
-import androidx.lifecycle.LiveData
-import com.master8.shana.domain.entity.ChangedMovie
 import com.master8.shana.domain.entity.Movie
 
 interface MoviesRepository {

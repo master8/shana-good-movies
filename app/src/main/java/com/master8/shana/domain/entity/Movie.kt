@@ -1,13 +1,12 @@
 package com.master8.shana.domain.entity
 
-import android.net.Uri
 import java.util.*
 
 data class Movie(
     val name: String,
     val originalName: String,
     val releaseYear: Int,
-    val poster: Uri? = null,
+    val poster: Image? = null,
 
     val movieType: MovieType = MovieType.UNKNOWN,
     val watchStatus: WatchStatus = WatchStatus.UNKNOWN,

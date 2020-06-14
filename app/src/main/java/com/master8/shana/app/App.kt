@@ -2,8 +2,8 @@ package com.master8.shana.app
 
 import android.app.Application
 import android.content.Context
-import androidx.appcompat.app.AppCompatDelegate
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.master8.shana.app.dependency.MoviesModule
 import com.master8.shana.app.dependency.SearchModule
 
@@ -14,7 +14,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+        Firebase.database.setPersistenceEnabled(true)
     }
 }
 

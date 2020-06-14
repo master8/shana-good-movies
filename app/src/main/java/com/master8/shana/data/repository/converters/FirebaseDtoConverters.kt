@@ -2,9 +2,13 @@ package com.master8.shana.data.repository.converters
 
 import android.net.Uri
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.master8.shana.data.source.firebase.database.dto.*
 import com.master8.shana.domain.entity.*
 import java.util.*
+
+private val storageReference by lazy { Firebase.storage.reference }
 
 fun parseMovie(snapshot: DataSnapshot): Movie = snapshot.getValue(FirebaseMovieDto::class.java)!!.toMovie()
 
@@ -64,7 +68,7 @@ private fun SaveStatus.toFirebaseConst() = when (this) {
 
 fun FirebaseMovieDto.toMovie(): Movie = Movie(
     name, originalName, releaseYear,
-    poster?.let { Uri.parse(it) },
+    poster?.let { buildImage(it) },
     movieType.toMovieType(),
     watchStatus.toWatchStatus(),
     saveStatus.toSaveStatus(),
@@ -78,10 +82,17 @@ fun FirebaseMovieDto.toMovie(): Movie = Movie(
 
 fun FirebaseSeriesDto.toSeries(): Series = Series(
     name, originalName, releaseYear,
-    poster?.let { Uri.parse(it) },
+    poster?.let { buildImage(it) },
     UUID.fromString(internalId),
     externalId
 )
+
+private fun buildImage(image: String): Image = if (image.contains("http")) {
+//    UriImage(Uri.parse(image))
+    UriImage(Uri.EMPTY)
+} else {
+    StorageReferenceImage(storageReference.child(image))
+}
 
 private fun Int.toMovieType() = when (this) {
     MEDIA_TYPE_ANIME -> MovieType.ANIME

@@ -1,6 +1,6 @@
 package com.master8.shana.data.repository
 
-import android.net.Uri
+import com.master8.shana.data.repository.converters.buildImage
 import com.master8.shana.data.repository.converters.toMovie
 import com.master8.shana.data.repository.converters.toSeries
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
@@ -9,6 +9,7 @@ import com.master8.shana.data.source.tmdb.createTMDbAbsoluteImageUri
 import com.master8.shana.data.source.tmdb.dto.MediaDto
 import com.master8.shana.data.source.tmdb.mediaTypeIsMovie
 import com.master8.shana.data.source.tmdb.mediaTypeIsTV
+import com.master8.shana.domain.entity.Image
 import com.master8.shana.domain.entity.Movie
 import com.master8.shana.domain.repository.SearchRepository
 import kotlinx.coroutines.Dispatchers
@@ -63,17 +64,17 @@ class SearchRepositoryImpl(
         return seasons.map { it.toMovie(series) }
     }
 
-    override suspend fun searchPosters(movie: Movie): List<Uri> = withContext(Dispatchers.IO) {
+    override suspend fun searchPosters(movie: Movie): List<Image> = withContext(Dispatchers.IO) {
 
         if (movie.externalId == null) {
-            return@withContext emptyList<Uri>()
+            return@withContext emptyList<Image>()
         }
 
-        val posters: List<Uri>
+        val posters: List<Image>
 
         if (movie.relatedSeries != null) {
 
-            val allPosters = mutableListOf<Uri>()
+            val allPosters = mutableListOf<Image>()
 
             movie.relatedSeries.externalId?.let {  tvId ->
 
@@ -81,14 +82,14 @@ class SearchRepositoryImpl(
                     movie.seasonNumber?.let {
                         tmdbApiService.getSeasonPosters(tvId, movie.seasonNumber)
                             .posters
-                            .mapNotNull { dto -> createTMDbAbsoluteImageUri(dto.relatedUri) }
+                            .mapNotNull { dto ->  buildImage(createTMDbAbsoluteImageUri(dto.relatedUri)) }
                     } ?: emptyList()
                 )
 
                 allPosters.addAll(
                     tmdbApiService.getTvPosters(tvId)
                         .posters
-                        .mapNotNull { dto -> createTMDbAbsoluteImageUri(dto.relatedUri) }
+                        .mapNotNull { dto ->  buildImage(createTMDbAbsoluteImageUri(dto.relatedUri)) }
                 )
             }
 
@@ -97,7 +98,7 @@ class SearchRepositoryImpl(
         } else {
             posters = tmdbApiService.getPosters(movie.externalId)
                 .posters
-                .mapNotNull { dto -> createTMDbAbsoluteImageUri(dto.relatedUri) }
+                .mapNotNull { dto -> buildImage(createTMDbAbsoluteImageUri(dto.relatedUri)) }
         }
         return@withContext posters
     }
