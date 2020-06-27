@@ -26,6 +26,10 @@ class HomeFragment : Fragment() {
         binding.buttonSearchMovie.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
+        binding.buttonListResearch.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_researchFragment)
+        }
+
         return binding.root
     }
 }
