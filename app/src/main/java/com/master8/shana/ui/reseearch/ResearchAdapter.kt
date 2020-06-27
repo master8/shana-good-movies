@@ -2,12 +2,12 @@ package com.master8.shana.ui.reseearch
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.master8.shana.databinding.ItemResearchBinding
 
-open class ResearchAdapter : PagedListAdapter<String, ResearchViewHolder>(ResearchDiffCallback) {
+open class ResearchAdapter : PagingDataAdapter<String, ResearchViewHolder>(ResearchDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResearchViewHolder {
         return ResearchViewHolder.createFrom(parent)

@@ -68,9 +68,9 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.1.0'
     implementation 'androidx.collection:collection-ktx:1.1.0'
     implementation 'androidx.fragment:fragment-ktx:1.2.0'
-    implementation 'androidx.paging:paging-common-ktx:2.1.2'
-    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
-//    implementation "androidx.paging:paging-runtime:3.0.0-alpha02"
+//    implementation 'androidx.paging:paging-common-ktx:2.1.2'
+//    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
+    implementation "androidx.paging:paging-runtime:3.0.0-alpha02"
     implementation 'androidx.preference:preference-ktx:1.1.0'
     implementation 'androidx.room:room-ktx:2.2.3'
     implementation 'androidx.sqlite:sqlite-ktx:2.1.0'
