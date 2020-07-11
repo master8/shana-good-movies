@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.master8.shana.databinding.FragmentResearchBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ResearchFragment : Fragment() {
 
@@ -29,15 +31,17 @@ class ResearchFragment : Fragment() {
 
         val start = SystemClock.elapsedRealtimeNanos()
 
-        Pager(PagingConfig(10)) {
-            ResearchDataSource()
-        }.liveData
-            .observe(viewLifecycleOwner) {
-                val end = SystemClock.elapsedRealtimeNanos()
-                Log.e("mv8", "duration ${end - start}")
+        lifecycleScope.launch {
+            Pager(PagingConfig(10)) {
+                ResearchDataSource()
+            }.flow
+                .collectLatest {
+                    val end = SystemClock.elapsedRealtimeNanos()
+                    Log.e("mv8", "duration ${end - start}")
 
-                researchAdapter.submitData(viewLifecycleOwner.lifecycle, it)
-            }
+                    researchAdapter.submitData(it)
+                }
+        }
 
         return binding.root
     }
