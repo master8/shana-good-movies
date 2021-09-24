@@ -5,6 +5,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
 import com.master8.shana.data.source.firebase.database.dto.FirebaseSeriesDto
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -41,6 +43,10 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
 
     override suspend fun getAllSeries(): List<FirebaseSeriesDto> {
         return series.getSeries()
+    }
+
+    override suspend fun getGoodMovies(): List<FirebaseMovieDto> = withContext(Dispatchers.IO) {
+        goodMovies.getMovies()
     }
 
     private suspend fun DatabaseReference.getMovies(): List<FirebaseMovieDto> = suspendCoroutine { continuation ->

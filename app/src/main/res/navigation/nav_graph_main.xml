@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchGoodMoviesFragment"
+            app:destination="@id/searchGoodMoviesFragment" />
     </fragment>
     <fragment
         android:id="@+id/goodMoviesFragment"
@@ -47,4 +50,10 @@
         android:id="@+id/linkMovieFragment"
         android:name="com.master8.shana.ui.linkmovie.LinkMovieFragment"
         android:label="LinkMovieFragment" />
+
+    <fragment
+        android:id="@+id/searchGoodMoviesFragment"
+        android:name="com.master8.shana.ui.search.added.GoodMoviesSearchFragment"
+        tools:layout="@layout/fragment_added_movies_search"
+        android:label="GoodMoviesSearchFragment" />
 </navigation>

@@ -58,6 +58,12 @@ class SearchRepositoryImpl(
         return movies
     }
 
+    override suspend fun searchGoodMovies(query: String): List<Movie> {
+        return firebaseRealtimeDatabase.getGoodMovies()
+            .filter { it.name.contains(query, true) || it.originalName.contains(query, true) }
+            .map { it.toMovie() }
+    }
+
     private suspend fun getMovieForTV(mediaTv: MediaDto): List<Movie> {
         val series = mediaTv.toSeries()
         val seasons = withContext(Dispatchers.IO) { tmdbApiService.getTvDetails(mediaTv.id!!).seasons }
