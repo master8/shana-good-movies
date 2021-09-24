@@ -24,6 +24,11 @@ class MoviesRepositoryImpl(
         putMovieUse(movie, firebaseRealtimeDatabase::putNeedToWatchMovie)
     }
 
+    override suspend fun moveToGoodMovies(movie: Movie) {
+        firebaseRealtimeDatabase.removeNeedToWatchMovie(buildFirebaseMovieDto(movie))
+        addGoodMovie(movie)
+    }
+
     override suspend fun updateGoodMovie(updatedMovie: Movie) {
         putMovieUse(updatedMovie, firebaseRealtimeDatabase::putGoodMovie)
     }

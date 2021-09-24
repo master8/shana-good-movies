@@ -12,12 +12,11 @@ class MoveToGoodMoviesUseCase(
 ) {
 
     suspend operator fun invoke(movie: Movie) {
-        moviesRepository.deleteNeedToWatchMovie(movie)
         val updatedMovie = movie.copy(
             watchStatus = WatchStatus.WATCHED,
             dateAdded = generateDateAdded()
         )
-        moviesRepository.addGoodMovie(updatedMovie)
+        moviesRepository.moveToGoodMovies(updatedMovie)
         movieChangesRepository.movieWasChanged(ChangedMovie(movie, updatedMovie))
     }
 
