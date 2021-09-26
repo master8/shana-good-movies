@@ -37,8 +37,8 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
             .setValue(series)
     }
 
-    override suspend fun getAllMovies(): List<FirebaseMovieDto> {
-        return goodMovies.getMovies() + needToWatchMovies.getMovies()
+    override suspend fun getAllMovies(): List<FirebaseMovieDto> = withContext(Dispatchers.IO) {
+        goodMovies.getMovies() + needToWatchMovies.getMovies()
     }
 
     override suspend fun getAllSeries(): List<FirebaseSeriesDto> {

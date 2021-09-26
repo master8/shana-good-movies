@@ -59,7 +59,7 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun searchGoodMovies(query: String): List<Movie> {
-        return firebaseRealtimeDatabase.getGoodMovies()
+        return firebaseRealtimeDatabase.getAllMovies()
             .filter { it.name.contains(query, true) || it.originalName.contains(query, true) }
             .map { it.toMovie() }
     }

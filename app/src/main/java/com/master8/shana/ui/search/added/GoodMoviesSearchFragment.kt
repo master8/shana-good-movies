@@ -37,8 +37,6 @@ class GoodMoviesSearchFragment : Fragment() {
             .apply {
                 val adapter = MoviesAdapter(movieViewModel, viewLifecycleOwner)
 
-                textTitle.text = "Search good movies"
-
                 listMovies.layoutManager = LinearLayoutManager(requireContext())
                 listMovies.adapter = adapter
 
