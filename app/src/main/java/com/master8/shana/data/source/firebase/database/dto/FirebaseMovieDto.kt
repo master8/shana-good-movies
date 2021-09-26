@@ -5,6 +5,7 @@ data class FirebaseMovieDto(
     var originalName: String = "",
     var releaseYear: Int = 0,
     var poster: String? = null,
+    var posterBlurHash: String? = null,
 
     var movieType: Int = MEDIA_TYPE_UNKNOWN,
     var watchStatus: Int = WATCH_STATUS_UNKNOWN,

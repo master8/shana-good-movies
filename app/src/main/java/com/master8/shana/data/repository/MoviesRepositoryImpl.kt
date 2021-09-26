@@ -1,5 +1,6 @@
 package com.master8.shana.data.repository
 
+import com.master8.shana.data.blurhash.BlurHashCreator
 import com.master8.shana.data.repository.converters.buildFirebaseMovieDto
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.data.source.firebase.database.FirebaseStorageDataSource
@@ -13,7 +14,8 @@ import kotlinx.coroutines.withContext
 
 class MoviesRepositoryImpl(
     private val firebaseRealtimeDatabase: FirebaseRealtimeDatabase,
-    private val firebaseStorageDataSource: FirebaseStorageDataSource
+    private val firebaseStorageDataSource: FirebaseStorageDataSource,
+    private val blurHashCreator: BlurHashCreator
 ) : MoviesRepository {
 
     override suspend fun addGoodMovie(movie: Movie) {
@@ -46,7 +48,10 @@ class MoviesRepositoryImpl(
                 movie.poster.reference
             ) }
 
-            StorageReferenceImage(posterReference)
+            StorageReferenceImage(
+                reference = posterReference,
+                blurHash = blurHashCreator.create(movie.poster.reference)
+            )
         } else {
             movie.poster
         }
@@ -58,7 +63,10 @@ class MoviesRepositoryImpl(
                 movie.relatedSeries.poster.reference
             ) }
 
-            StorageReferenceImage(posterReference)
+            StorageReferenceImage(
+                reference = posterReference,
+                blurHash = blurHashCreator.create(movie.relatedSeries.poster.reference)
+            )
         } else {
             movie.relatedSeries?.poster
         }

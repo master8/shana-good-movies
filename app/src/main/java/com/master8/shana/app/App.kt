@@ -9,7 +9,7 @@ import com.master8.shana.app.dependency.SearchModule
 
 class App : Application() {
 
-    val moviesModule by lazy { MoviesModule() }
+    val moviesModule by lazy { MoviesModule(this) }
     val searchModule by lazy { SearchModule(moviesModule) }
 
     override fun onCreate() {

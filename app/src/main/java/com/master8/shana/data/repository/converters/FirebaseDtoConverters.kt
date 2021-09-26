@@ -1,6 +1,5 @@
 package com.master8.shana.data.repository.converters
 
-import android.net.Uri
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -19,6 +18,7 @@ fun buildFirebaseMovieDto(movie: Movie): FirebaseMovieDto =
             originalName,
             releaseYear,
             poster.toString(),
+            poster?.blurHash,
             movieType.toFirebaseConst(),
             watchStatus.toFirebaseConst(),
             saveStatus.toFirebaseConst(),
@@ -42,6 +42,7 @@ fun buildFirebaseSeriesDto(series: Series): FirebaseSeriesDto =
             originalName,
             releaseYear,
             poster.toString(),
+            poster?.blurHash,
             internalId.toString(),
             externalId
         )
@@ -68,7 +69,7 @@ private fun SaveStatus.toFirebaseConst() = when (this) {
 
 fun FirebaseMovieDto.toMovie(): Movie = Movie(
     name, originalName, releaseYear,
-    poster?.let { buildImage(it) },
+    poster?.let { buildImage(it, posterBlurHash) },
     movieType.toMovieType(),
     watchStatus.toWatchStatus(),
     saveStatus.toSaveStatus(),
@@ -82,16 +83,16 @@ fun FirebaseMovieDto.toMovie(): Movie = Movie(
 
 fun FirebaseSeriesDto.toSeries(): Series = Series(
     name, originalName, releaseYear,
-    poster?.let { buildImage(it) },
+    poster?.let { buildImage(it, posterBlurHash) },
     UUID.fromString(internalId),
     externalId
 )
 
-private fun buildImage(image: String): Image? = if (image.contains("http")) {
+private fun buildImage(image: String, blurHash: String?): Image? = if (image.contains("http")) {
 //    UriImage(Uri.parse(image))
     null
 } else {
-    StorageReferenceImage(storageReference.child(image))
+    StorageReferenceImage(storageReference.child(image), blurHash)
 }
 
 private fun Int.toMovieType() = when (this) {

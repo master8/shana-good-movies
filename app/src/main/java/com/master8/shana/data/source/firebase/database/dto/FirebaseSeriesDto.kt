@@ -5,6 +5,7 @@ data class FirebaseSeriesDto(
     var originalName: String = "",
     var releaseYear: Int = 0,
     var poster: String? = null,
+    var posterBlurHash: String? = null,
 
     var internalId: String = "",
     var externalId: Int? = null
