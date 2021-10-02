@@ -81,6 +81,11 @@ class MovieDialogViewModel(
         _closeDialog.value = Event(true)
     }
 
+    fun markSaving(movie: Movie) = viewModelScope.launch {
+        changeSavedStatusUseCase(movie, SaveStatus.IN_PROGRESS)
+        _closeDialog.value = Event(true)
+    }
+
     fun markNotSaved(movie: Movie) = viewModelScope.launch {
         changeSavedStatusUseCase(movie, SaveStatus.NOT_SAVED)
         _closeDialog.value = Event(true)

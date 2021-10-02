@@ -66,6 +66,7 @@ private fun SaveStatus.toFirebaseConst() = when (this) {
     SaveStatus.UNKNOWN -> SAVE_STATUS_UNKNOWN
     SaveStatus.SAVED -> SAVE_STATUS_SAVED
     SaveStatus.NOT_SAVED -> SAVE_STATUS_NOT_SAVED
+    SaveStatus.IN_PROGRESS -> SAVE_STATUS_IN_PROGRESS
 }
 
 private fun ReleaseStatus.toFirebaseConst() = when (this) {
@@ -120,6 +121,7 @@ private fun Int.toWatchStatus() = when (this) {
 private fun Int.toSaveStatus() = when (this) {
     SAVE_STATUS_SAVED -> SaveStatus.SAVED
     SAVE_STATUS_NOT_SAVED -> SaveStatus.NOT_SAVED
+    SAVE_STATUS_IN_PROGRESS -> SaveStatus.IN_PROGRESS
     else -> SaveStatus.UNKNOWN
 }
 

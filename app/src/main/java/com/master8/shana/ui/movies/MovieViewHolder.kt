@@ -25,6 +25,7 @@ class MovieViewHolder private constructor(
                 SaveStatus.SAVED -> "Saved"
                 SaveStatus.NOT_SAVED -> "Online only"
                 SaveStatus.UNKNOWN -> "Unknown"
+                SaveStatus.IN_PROGRESS -> "in progress"
             }
 
             textReleaseStatus.isGone = movie.watchStatus == WatchStatus.WATCHED || movie.releaseStatus == ReleaseStatus.READY
