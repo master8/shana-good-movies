@@ -44,8 +44,8 @@
 
         <TextView
             android:id="@+id/text_year"
-            android:layout_width="0dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -53,12 +53,30 @@
             android:fontFamily="sans-serif-light"
             android:text="@{String.valueOf(movie.releaseYear)}"
             android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintBottom_toTopOf="@+id/text_original_name"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_release_status"
             app:layout_constraintStart_toEndOf="@id/card_poster"
             app:layout_constraintTop_toTopOf="@id/card_poster"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="2020" />
+
+        <TextView
+            android:id="@+id/text_release_status"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.4"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/text_year"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_year"
+            app:layout_constraintTop_toTopOf="@id/text_year"
+            tools:text="in progress" />
 
         <TextView
             android:id="@+id/text_original_name"

@@ -22,6 +22,7 @@ fun buildFirebaseMovieDto(movie: Movie): FirebaseMovieDto =
             movieType.toFirebaseConst(),
             watchStatus.toFirebaseConst(),
             saveStatus.toFirebaseConst(),
+            releaseStatus.toFirebaseConst(),
             externalId,
             internalId.toString(),
             dateAdded!!,
@@ -67,12 +68,20 @@ private fun SaveStatus.toFirebaseConst() = when (this) {
     SaveStatus.NOT_SAVED -> SAVE_STATUS_NOT_SAVED
 }
 
+private fun ReleaseStatus.toFirebaseConst() = when (this) {
+    ReleaseStatus.WAITING -> RELEASE_STATUS_WAITING
+    ReleaseStatus.IN_PROGRESS -> RELEASE_STATUS_IN_PROGRESS
+    ReleaseStatus.READY -> RELEASE_STATUS_READY
+    ReleaseStatus.UNKNOWN -> RELEASE_STATUS_UNKNOWN
+}
+
 fun FirebaseMovieDto.toMovie(): Movie = Movie(
     name, originalName, releaseYear,
     poster?.let { buildImage(it, posterBlurHash) },
     movieType.toMovieType(),
     watchStatus.toWatchStatus(),
     saveStatus.toSaveStatus(),
+    releaseStatus.toReleaseStatus(),
     externalId,
     UUID.fromString(internalId),
     dateAdded,
@@ -112,4 +121,12 @@ private fun Int.toSaveStatus() = when (this) {
     SAVE_STATUS_SAVED -> SaveStatus.SAVED
     SAVE_STATUS_NOT_SAVED -> SaveStatus.NOT_SAVED
     else -> SaveStatus.UNKNOWN
+}
+
+private fun Int.toReleaseStatus() = when (this) {
+    RELEASE_STATUS_UNKNOWN -> ReleaseStatus.UNKNOWN
+    RELEASE_STATUS_READY -> ReleaseStatus.READY
+    RELEASE_STATUS_WAITING -> ReleaseStatus.WAITING
+    RELEASE_STATUS_IN_PROGRESS -> ReleaseStatus.IN_PROGRESS
+    else -> ReleaseStatus.UNKNOWN
 }

@@ -10,6 +10,7 @@ data class FirebaseMovieDto(
     var movieType: Int = MEDIA_TYPE_UNKNOWN,
     var watchStatus: Int = WATCH_STATUS_UNKNOWN,
     var saveStatus: Int = SAVE_STATUS_UNKNOWN,
+    var releaseStatus: Int = RELEASE_STATUS_UNKNOWN,
 
     var externalId: Int? = null,
     var internalId: String = "",

@@ -11,6 +11,7 @@ data class Movie(
     val movieType: MovieType = MovieType.UNKNOWN,
     val watchStatus: WatchStatus = WatchStatus.UNKNOWN,
     val saveStatus: SaveStatus = SaveStatus.UNKNOWN,
+    val releaseStatus: ReleaseStatus = ReleaseStatus.UNKNOWN,
 
     val externalId: Int? = null,
     val internalId: UUID? = null,

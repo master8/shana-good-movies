@@ -7,7 +7,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.master8.shana.databinding.ItemMovieBinding
 import com.master8.shana.domain.entity.Movie
+import com.master8.shana.domain.entity.ReleaseStatus
 import com.master8.shana.domain.entity.SaveStatus
+import com.master8.shana.domain.entity.WatchStatus
 
 class MovieViewHolder private constructor(
     private val binding: ItemMovieBinding
@@ -23,6 +25,14 @@ class MovieViewHolder private constructor(
                 SaveStatus.SAVED -> "Saved"
                 SaveStatus.NOT_SAVED -> "Online only"
                 SaveStatus.UNKNOWN -> "Unknown"
+            }
+
+            textReleaseStatus.isGone = movie.watchStatus == WatchStatus.WATCHED || movie.releaseStatus == ReleaseStatus.READY
+            textReleaseStatus.text = when (movie.releaseStatus) {
+                ReleaseStatus.WAITING -> "waiting"
+                ReleaseStatus.IN_PROGRESS -> "in progress"
+                ReleaseStatus.READY -> "ready"
+                ReleaseStatus.UNKNOWN -> "unknown"
             }
         }
     }
