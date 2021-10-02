@@ -82,14 +82,17 @@ class MovieDialog : BottomSheetDialogFragment() {
                 when (movie.saveStatus) {
                     SaveStatus.SAVED -> {
                         buttonMarkNotSaved.hide()
+                        buttonMarkSaving.hide()
                         buttonMarkSaved.hide()
                     }
                     SaveStatus.NOT_SAVED -> {
                         buttonMarkNotSaved.hide()
+                        buttonMarkSaving.show()
                         buttonMarkSaved.show()
                     }
                     SaveStatus.UNKNOWN -> {
                         buttonMarkNotSaved.show()
+                        buttonMarkSaving.show()
                         buttonMarkSaved.show()
                     }
                 }
