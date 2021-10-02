@@ -2,18 +2,29 @@ package com.master8.shana.ui.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.master8.shana.databinding.ItemMovieBinding
 import com.master8.shana.domain.entity.Movie
+import com.master8.shana.domain.entity.SaveStatus
 
 class MovieViewHolder private constructor(
     private val binding: ItemMovieBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movie: Movie, viewModel: MovieViewModel) {
-        binding.movie = movie
-        binding.viewModel = viewModel
+        with (binding) {
+            this.movie = movie
+            this.viewModel = viewModel
+
+            textSavedStatus.isGone = movie.saveStatus == SaveStatus.SAVED
+            textSavedStatus.text = when (movie.saveStatus) {
+                SaveStatus.SAVED -> "Saved"
+                SaveStatus.NOT_SAVED -> "Online only"
+                SaveStatus.UNKNOWN -> "Unknown"
+            }
+        }
     }
 
     companion object {

@@ -85,11 +85,30 @@
             android:alpha="0.7"
             android:text="@{movie.name}"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/button_add_to_good_movie"
+            app:layout_constraintBottom_toTopOf="@+id/text_saved_status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_poster"
             app:layout_constraintTop_toBottomOf="@id/text_original_name"
             tools:text="Just name of movie" />
+
+        <TextView
+            android:id="@+id/text_saved_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.7"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/button_add_to_good_movie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/card_poster"
+            app:layout_constraintTop_toBottomOf="@id/text_name"
+            tools:text="Online only" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_add_to_good_movie"
