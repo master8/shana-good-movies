@@ -43,7 +43,9 @@ class ViewModelFactory(
             moviesModule.changeMoviePosterUseCase,
             searchModule.searchPostersByMovieUseCase,
             searchModule.searchNamesForMovieUseCase,
-            moviesModule.changeMovieNameUseCase
+            moviesModule.changeMovieNameUseCase,
+            moviesModule.changeReleaseStatusUseCase,
+            moviesModule.changeSavedStatusUseCase
         )
 
     private val moviesSearchViewModel: MoviesSearchViewModel

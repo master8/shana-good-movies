@@ -175,7 +175,6 @@
             android:lines="1"
             android:text="@{movie.name}"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/button_add_to_good_movie"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_poster"
             app:layout_constraintTop_toBottomOf="@id/text_original_name"
@@ -209,6 +208,61 @@
             app:layout_constraintTop_toBottomOf="@id/button_move_to_good_movie" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_mark_saved"
+            style="@style/Widget.Shana.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.markSaved(movie)}"
+            android:text="mark saved"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_change_name" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_mark_not_saved"
+            style="@style/Widget.Shana.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.markNotSaved(movie)}"
+            android:text="mark not saved"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_mark_saved" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_mark_ready_to_watch"
+            style="@style/Widget.Shana.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.markReadyToWatch(movie)}"
+            android:text="mark ready to watch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_mark_not_saved" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_mark_waiting_release"
+            style="@style/Widget.Shana.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.markWaitingRelease(movie)}"
+            android:text="mark waiting release"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_mark_ready_to_watch" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_mark_release_in_progress"
+            style="@style/Widget.Shana.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.markReleaseInProgress(movie)}"
+            android:text="mark release in progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_mark_waiting_release" />
+
+        <com.google.android.material.button.MaterialButton
             style="@style/Widget.Shana.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -221,8 +275,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_change_name"
-            app:layout_goneMarginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/button_mark_release_in_progress"
             app:rippleColor="@color/mtrl_btn_text_btn_ripple_color" />
 
         <androidx.constraintlayout.widget.Group

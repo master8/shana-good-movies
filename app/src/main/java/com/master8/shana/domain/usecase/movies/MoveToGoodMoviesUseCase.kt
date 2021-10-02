@@ -2,6 +2,7 @@ package com.master8.shana.domain.usecase.movies
 
 import com.master8.shana.domain.entity.ChangedMovie
 import com.master8.shana.domain.entity.Movie
+import com.master8.shana.domain.entity.ReleaseStatus
 import com.master8.shana.domain.entity.WatchStatus
 import com.master8.shana.domain.repository.MovieChangesRepository
 import com.master8.shana.domain.repository.MoviesRepository
@@ -13,6 +14,7 @@ class MoveToGoodMoviesUseCase(
 
     suspend operator fun invoke(movie: Movie) {
         val updatedMovie = movie.copy(
+            releaseStatus = ReleaseStatus.READY,
             watchStatus = WatchStatus.WATCHED,
             dateAdded = generateDateAdded()
         )

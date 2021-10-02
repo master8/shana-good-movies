@@ -54,6 +54,18 @@ class MoviesModule(context: Context) {
         )
     }
 
+    val changeReleaseStatusUseCase by lazy {
+        ChangeReleaseStatusUseCase(
+            moviesRepository
+        )
+    }
+
+    val changeSavedStatusUseCase by lazy {
+        ChangeSavedStatusUseCase(
+            moviesRepository
+        )
+    }
+
     private val prepareMovieToAddUseCase by lazy {
         PrepareMovieToAddUseCase(
             prepareSeriesToAddUseCase
