@@ -6,6 +6,10 @@ import com.google.firebase.ktx.Firebase
 import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
 import com.master8.shana.data.source.firebase.database.dto.FirebaseSeriesDto
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -41,7 +45,11 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
         goodMovies.getMovies() + needToWatchMovies.getMovies()
     }
 
-    override suspend fun getAllSeries(): List<FirebaseSeriesDto> {
+    override suspend fun getAllSeriesOnce(): List<FirebaseSeriesDto> {
+        return series.getSeriesOnce()
+    }
+
+    override fun getAllSeries(): Flow<List<FirebaseSeriesDto>> {
         return series.getSeries()
     }
 
@@ -67,7 +75,7 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
         })
     }
 
-    private suspend fun DatabaseReference.getSeries(): List<FirebaseSeriesDto> = suspendCoroutine { continuation ->
+    private suspend fun DatabaseReference.getSeriesOnce(): List<FirebaseSeriesDto> = suspendCoroutine { continuation ->
         this.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(databaesError: DatabaseError) {
                 continuation.resumeWithException(RuntimeException("Query was cancelled! ${databaesError.message}"))
@@ -83,6 +91,29 @@ class FirebaseRealtimeDatabaseImpl : FirebaseRealtimeDatabase {
             }
 
         })
+    }
+
+    private fun DatabaseReference.getSeries(): Flow<List<FirebaseSeriesDto>> {
+        return callbackFlow {
+
+            val listener = object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    trySend(
+                        snapshot
+                            .children
+                            .map { it.getValue(FirebaseSeriesDto::class.java)!! }
+                    )
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    cancel(error.message, error.toException())
+                }
+
+            }
+            this@getSeries.addValueEventListener(listener)
+
+            awaitClose { this@getSeries.removeEventListener(listener) }
+        }
     }
 
     override fun removeGoodMovie(movie: FirebaseMovieDto) {
