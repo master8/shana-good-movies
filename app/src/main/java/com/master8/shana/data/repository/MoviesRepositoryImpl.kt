@@ -2,10 +2,12 @@ package com.master8.shana.data.repository
 
 import com.master8.shana.data.blurhash.BlurHashCreator
 import com.master8.shana.data.repository.converters.buildFirebaseMovieDto
+import com.master8.shana.data.repository.converters.toSeries
 import com.master8.shana.data.source.firebase.database.FirebaseRealtimeDatabase
 import com.master8.shana.data.source.firebase.database.FirebaseStorageDataSource
 import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
 import com.master8.shana.domain.entity.Movie
+import com.master8.shana.domain.entity.Series
 import com.master8.shana.domain.entity.StorageReferenceImage
 import com.master8.shana.domain.entity.UriImage
 import com.master8.shana.domain.repository.MoviesRepository
@@ -44,9 +46,11 @@ class MoviesRepositoryImpl(
         val moviePoster = if (movie.poster is UriImage
             && movie.internalId != null
         ) {
-            val posterReference = withContext(Dispatchers.IO) { firebaseStorageDataSource.uploadImage(
-                movie.poster.reference
-            ) }
+            val posterReference = withContext(Dispatchers.IO) {
+                firebaseStorageDataSource.uploadImage(
+                    movie.poster.reference
+                )
+            }
 
             StorageReferenceImage(
                 reference = posterReference,
@@ -58,10 +62,13 @@ class MoviesRepositoryImpl(
 
         val seriesPoster = if (movie.relatedSeries?.poster is UriImage
             && movie.relatedSeries.internalId != null
+            && getAllSeries().find { it.externalId == movie.relatedSeries.externalId } == null
         ) {
-            val posterReference = withContext(Dispatchers.IO) { firebaseStorageDataSource.uploadImage(
-                movie.relatedSeries.poster.reference
-            ) }
+            val posterReference = withContext(Dispatchers.IO) {
+                firebaseStorageDataSource.uploadImage(
+                    movie.relatedSeries.poster.reference
+                )
+            }
 
             StorageReferenceImage(
                 reference = posterReference,
@@ -82,9 +89,11 @@ class MoviesRepositoryImpl(
             )
 
         putMovie(movieDto)
-        movieDto.relatedSeries?.let { firebaseRealtimeDatabase.putSeries(it) }
+        movieDto.relatedSeries?.let {
+            if (getAllSeries().find { series -> series.externalId == it.externalId } == null)
+                firebaseRealtimeDatabase.putSeries(it)
+        }
     }
-
 
 
     override suspend fun deleteGoodMovie(movie: Movie) {
@@ -102,4 +111,7 @@ class MoviesRepositoryImpl(
             movie.poster.reference.delete()
         }
     }
+
+    override suspend fun getAllSeries(): List<Series> =
+        firebaseRealtimeDatabase.getAllSeries().map { it.toSeries() }
 }
