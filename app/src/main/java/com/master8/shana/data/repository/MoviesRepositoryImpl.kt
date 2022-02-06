@@ -13,6 +13,7 @@ import com.master8.shana.domain.entity.UriImage
 import com.master8.shana.domain.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class MoviesRepositoryImpl(
     private val firebaseRealtimeDatabase: FirebaseRealtimeDatabase,
@@ -61,8 +62,7 @@ class MoviesRepositoryImpl(
         }
 
         val seriesPoster = if (movie.relatedSeries?.poster is UriImage
-            && movie.relatedSeries.internalId != null
-            && getAllSeries().find { it.externalId == movie.relatedSeries.externalId } == null
+            && movie.relatedSeries.internalId == null
         ) {
             val posterReference = withContext(Dispatchers.IO) {
                 firebaseStorageDataSource.uploadImage(
@@ -78,21 +78,25 @@ class MoviesRepositoryImpl(
             movie.relatedSeries?.poster
         }
 
+        var internalId: UUID? = null
+
         val movieDto =
             buildFirebaseMovieDto(
                 movie.copy(
                     poster = moviePoster,
                     relatedSeries = movie.relatedSeries?.copy(
-                        poster = seriesPoster
+                        poster = seriesPoster,
+                        internalId = movie.relatedSeries.internalId ?: kotlin.run {
+                            internalId = generateInternalId()
+                            internalId
+                        }
                     )
                 )
             )
 
         putMovie(movieDto)
-        movieDto.relatedSeries?.let {
-            if (getAllSeries().find { series -> series.externalId == it.externalId } == null)
-                firebaseRealtimeDatabase.putSeries(it)
-        }
+
+        movieDto.relatedSeries?.let { if (internalId != null) firebaseRealtimeDatabase.putSeries(it) }
     }
 
 
@@ -114,4 +118,6 @@ class MoviesRepositoryImpl(
 
     override suspend fun getAllSeries(): List<Series> =
         firebaseRealtimeDatabase.getAllSeries().map { it.toSeries() }
+
+    private fun generateInternalId(): UUID = UUID.randomUUID()
 }
