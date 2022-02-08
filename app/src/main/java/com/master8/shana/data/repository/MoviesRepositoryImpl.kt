@@ -61,9 +61,7 @@ class MoviesRepositoryImpl(
             movie.poster
         }
 
-        val seriesPoster = if (movie.relatedSeries?.poster is UriImage
-            && movie.relatedSeries.internalId == null
-        ) {
+        val seriesPoster = if (movie.relatedSeries?.poster is UriImage) {
             val posterReference = withContext(Dispatchers.IO) {
                 firebaseStorageDataSource.uploadImage(
                     movie.relatedSeries.poster.reference
@@ -78,25 +76,19 @@ class MoviesRepositoryImpl(
             movie.relatedSeries?.poster
         }
 
-        var internalId: UUID? = null
-
         val movieDto =
             buildFirebaseMovieDto(
                 movie.copy(
                     poster = moviePoster,
                     relatedSeries = movie.relatedSeries?.copy(
-                        poster = seriesPoster,
-                        internalId = movie.relatedSeries.internalId ?: kotlin.run {
-                            internalId = generateInternalId()
-                            internalId
-                        }
+                        poster = seriesPoster
                     )
                 )
             )
 
         putMovie(movieDto)
 
-        movieDto.relatedSeries?.let { if (internalId != null) firebaseRealtimeDatabase.putSeries(it) }
+        movieDto.relatedSeries?.let { firebaseRealtimeDatabase.putSeries(it) }
     }
 
 
