@@ -1,6 +1,7 @@
 package com.master8.shana.domain.repository
 
 import com.master8.shana.domain.entity.Movie
+import com.master8.shana.domain.entity.Series
 
 interface MoviesRepository {
 
@@ -15,4 +16,6 @@ interface MoviesRepository {
     suspend fun deleteGoodMovie(movie: Movie)
     suspend fun deleteNeedToWatchMovie(movie: Movie)
     suspend fun deletePoster(movie: Movie)
+
+    suspend fun getAllSeries(): List<Series>
 }

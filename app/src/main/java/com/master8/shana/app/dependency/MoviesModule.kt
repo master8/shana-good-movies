@@ -72,7 +72,7 @@ class MoviesModule(context: Context) {
         )
     }
 
-    private val prepareSeriesToAddUseCase by lazy { PrepareSeriesToAddUseCase() }
+    private val prepareSeriesToAddUseCase by lazy { PrepareSeriesToAddUseCase(moviesRepository) }
 
     val getChangedMovieUseCase by lazy {
         GetChangedMovieUseCase(

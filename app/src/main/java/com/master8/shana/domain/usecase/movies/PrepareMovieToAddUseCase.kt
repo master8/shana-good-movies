@@ -9,24 +9,25 @@ class PrepareMovieToAddUseCase(
     private val prepareSeriesToAddUseCase: PrepareSeriesToAddUseCase
 ) {
 
-    operator fun invoke(movie: Movie, watchStatus: WatchStatus): Movie {
+    suspend operator fun invoke(movie: Movie, watchStatus: WatchStatus): Movie {
         val preparedRelatedSeries = movie.relatedSeries?.let { prepareSeriesToAddUseCase(it) }
         return prepareMovie(movie, watchStatus, preparedRelatedSeries)
     }
 
-    private fun prepareMovie(movie: Movie, watchStatus: WatchStatus, relatedSeries: Series?) = when {
-        movie.isNotAddedBefore() -> movie.copy(
-            watchStatus = watchStatus,
-            internalId = generateInternalId(),
-            relatedSeries = relatedSeries,
-            dateAdded = generateDateAdded()
-        )
-        movie.inNotStatus(watchStatus) -> movie.copy(
-            watchStatus = watchStatus,
-            relatedSeries = relatedSeries
-        )
-        else -> movie
-    }
+    private fun prepareMovie(movie: Movie, watchStatus: WatchStatus, relatedSeries: Series?) =
+        when {
+            movie.isNotAddedBefore() -> movie.copy(
+                watchStatus = watchStatus,
+                internalId = generateInternalId(),
+                relatedSeries = relatedSeries,
+                dateAdded = generateDateAdded()
+            )
+            movie.inNotStatus(watchStatus) -> movie.copy(
+                watchStatus = watchStatus,
+                relatedSeries = relatedSeries
+            )
+            else -> movie
+        }
 
     private fun Movie.isNotAddedBefore() = this.internalId == null
     private fun Movie.inNotStatus(watchStatus: WatchStatus) = this.watchStatus == watchStatus
