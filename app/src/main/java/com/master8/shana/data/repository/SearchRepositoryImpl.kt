@@ -34,7 +34,7 @@ class SearchRepositoryImpl(
         val addedMovies = firebaseRealtimeDatabase.getAllMovies()
             .filter { it.externalId != null }
 
-        val addedSeries = firebaseRealtimeDatabase.getAllSeries()
+        val addedSeries = firebaseRealtimeDatabase.getAllSeriesOnce()
             .filter { it.externalId != null }
 
         for (i in movies.indices) {

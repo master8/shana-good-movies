@@ -3,6 +3,7 @@ package com.master8.shana.data.source.firebase.database
 import com.google.firebase.database.Query
 import com.master8.shana.data.source.firebase.database.dto.FirebaseMovieDto
 import com.master8.shana.data.source.firebase.database.dto.FirebaseSeriesDto
+import kotlinx.coroutines.flow.Flow
 
 interface FirebaseRealtimeDatabase {
 
@@ -15,7 +16,9 @@ interface FirebaseRealtimeDatabase {
     fun putSeries(series: FirebaseSeriesDto)
 
     suspend fun getAllMovies(): List<FirebaseMovieDto>
-    suspend fun getAllSeries(): List<FirebaseSeriesDto>
+    suspend fun getAllSeriesOnce(): List<FirebaseSeriesDto>
+
+    fun getAllSeries(): Flow<List<FirebaseSeriesDto>>
 
     suspend fun getGoodMovies(): List<FirebaseMovieDto>
 
