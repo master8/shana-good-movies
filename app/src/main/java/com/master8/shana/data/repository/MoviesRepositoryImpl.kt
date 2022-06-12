@@ -109,7 +109,5 @@ class MoviesRepositoryImpl(
     }
 
     override suspend fun getAllSeries(): List<Series> =
-        firebaseRealtimeDatabase.getAllSeries().map { it.toSeries() }
-
-    private fun generateInternalId(): UUID = UUID.randomUUID()
+        firebaseRealtimeDatabase.getAllSeriesOnce().map { it.toSeries() }
 }
