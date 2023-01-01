@@ -29,6 +29,9 @@ class HomeFragment : Fragment() {
         binding.buttonSearchGoodMovie.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_searchGoodMoviesFragment)
         }
+        binding.buttonRemember.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_rememberFragment)
+        }
         return binding.root
     }
 }

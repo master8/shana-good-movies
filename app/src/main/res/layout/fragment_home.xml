@@ -47,6 +47,17 @@
         app:layout_constraintTop_toBottomOf="@id/button_search_movie"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_remember"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/button_search_good_movie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

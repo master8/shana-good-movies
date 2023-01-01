@@ -7,6 +7,7 @@ import com.master8.shana.app.app
 import com.master8.shana.ui.linkmovie.LinkMovieViewModel
 import com.master8.shana.ui.movies.MovieViewModel
 import com.master8.shana.ui.movies.dialog.MovieDialogViewModel
+import com.master8.shana.ui.remember.RememberViewModel
 import com.master8.shana.ui.search.SearchViewModel
 import com.master8.shana.ui.search.added.MoviesSearchViewModel
 
@@ -53,6 +54,12 @@ class ViewModelFactory(
             searchModule.searchGoodMoviesUseCase
         )
 
+    private val rememberViewModel: RememberViewModel
+        get() = RememberViewModel(
+            moviesModule.addGoodMovieUseCase,
+            moviesModule.addNeedToWatchMovieUseCase
+        )
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
         when {
@@ -61,6 +68,7 @@ class ViewModelFactory(
             isAssignableFrom(LinkMovieViewModel::class.java) -> { linkMovieViewModel }
             isAssignableFrom(MovieDialogViewModel::class.java) -> { movieDialogViewModel }
             isAssignableFrom(MoviesSearchViewModel::class.java) -> { moviesSearchViewModel }
+            isAssignableFrom(RememberViewModel::class.java) -> { rememberViewModel }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     } as T

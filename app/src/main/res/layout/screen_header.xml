@@ -3,12 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:paddingStart="18dp"
-    android:paddingLeft="18dp"
-    android:paddingEnd="18dp"
-    android:paddingRight="18dp"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="24dp"
     tools:viewBindingIgnore="true"
     android:orientation="vertical">
 

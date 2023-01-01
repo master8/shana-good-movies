@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchGoodMoviesFragment"
             app:destination="@id/searchGoodMoviesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_rememberFragment"
+            app:destination="@id/rememberFragment" />
     </fragment>
     <fragment
         android:id="@+id/goodMoviesFragment"
@@ -56,4 +59,16 @@
         android:name="com.master8.shana.ui.search.added.GoodMoviesSearchFragment"
         tools:layout="@layout/fragment_added_movies_search"
         android:label="GoodMoviesSearchFragment" />
+    <fragment
+        android:id="@+id/rememberFragment"
+        android:name="com.master8.shana.ui.remember.RememberFragment"
+        tools:layout="@layout/fragment_remember"
+        android:label="RememberFragment" >
+        <action
+            android:id="@+id/action_rememberFragment_to_goodMoviesFragment"
+            app:destination="@id/goodMoviesFragment" />
+        <action
+            android:id="@+id/action_rememberFragment_to_needToWatchMoviesFragment"
+            app:destination="@id/needToWatchMoviesFragment" />
+    </fragment>
 </navigation>
