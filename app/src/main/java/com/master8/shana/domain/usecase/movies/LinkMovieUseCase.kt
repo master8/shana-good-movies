@@ -11,6 +11,7 @@ class LinkMovieUseCase(
     suspend operator fun invoke(oldMovie: Movie, newMovie: Movie) {
         val updatedMovie = oldMovie.copy(
             originalName = newMovie.originalName,
+            name = newMovie.name,
             poster = newMovie.poster,
             externalId = newMovie.externalId,
             relatedSeries = newMovie.relatedSeries?.let { prepareSeriesToAddUseCase(it) },
