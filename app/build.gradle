@@ -5,12 +5,12 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 30
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.master8.shana"
         minSdkVersion 25
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -45,6 +45,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    namespace 'com.master8.shana'
 }
 
 dependencies {

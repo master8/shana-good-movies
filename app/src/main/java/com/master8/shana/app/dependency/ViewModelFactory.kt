@@ -61,7 +61,7 @@ class ViewModelFactory(
         )
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = with(modelClass) {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T = with(modelClass) {
         when {
             isAssignableFrom(SearchViewModel::class.java) -> { searchViewModel }
             isAssignableFrom(MovieViewModel::class.java) -> { movieViewModel }

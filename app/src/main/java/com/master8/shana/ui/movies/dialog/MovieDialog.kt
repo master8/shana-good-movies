@@ -95,6 +95,8 @@ class MovieDialog : BottomSheetDialogFragment() {
                         buttonMarkSaving.show()
                         buttonMarkSaved.show()
                     }
+
+                    else -> {}
                 }
             }
         }

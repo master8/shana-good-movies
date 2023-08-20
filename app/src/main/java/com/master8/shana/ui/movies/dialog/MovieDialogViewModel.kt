@@ -39,7 +39,7 @@ class MovieDialogViewModel(
 
     fun selectMovie(movie: Movie) {
         _selectedMove.value = movie
-        _posters.value = null
+//        _posters.value = null//TODO mv8
     }
 
     fun deleteMovie(movie: Movie) = viewModelScope.launch {
@@ -72,7 +72,7 @@ class MovieDialogViewModel(
 
     fun changeName(name: String) = viewModelScope.launch {
         _selectedMove.value?.let {
-            _selectedMove.value = changeMovieNameUseCase(it, name)
+//            _selectedMove.value = changeMovieNameUseCase(it, name)//TODO mv8
         }
     }
 
